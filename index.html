@@ -15,13 +15,17 @@
     
     body {
       background-color: #f9fafb;
-      padding: 6px;
-      font-size: 12px;
+      padding: 0;
+      margin: 0;
+      font-size: 14px;
+      overflow-x: hidden;
     }
     
     .container {
-      max-width: 800px;
+      width: 100%;
+      max-width: 100%;
       margin: 0 auto;
+      padding: 0 10px;
     }
     
     /* Card styling */
@@ -291,12 +295,12 @@
         flex-direction: row;
       }
       
-      .md\\:w-2\/3 {
-        width: 66.6666%;
+      .md\\:w-7\/10 {
+        width: 70%;
       }
       
-      .md\\:w-1\/3 {
-        width: 33.3333%;
+      .md\\:w-3\/10 {
+        width: 30%;
       }
       
       .md\\:pr-4 {
@@ -305,6 +309,17 @@
       
       .md\\:mt-0 {
         margin-top: 0;
+      }
+    }
+    
+    /* Mobile specific styles */
+    @media (max-width: 767px) {
+      .card-content {
+        padding: 8px;
+      }
+      
+      canvas {
+        max-height: 50vh; /* Limit canvas height on mobile */
       }
     }
   </style>
@@ -317,9 +332,9 @@
       </div>
       <div class="card-content">
         <div class="flex flex-col md:flex-row">
-          <div class="w-full md:w-2/3 md:pr-2">
-            <!-- Further reduced canvas size (now 50x30) -->
-            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="50" height="30"></canvas>
+          <div class="w-full md:w-7/10" style="width: 70%;">
+            <!-- Increased canvas size with proper scaling -->
+            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="250" height="150"></canvas>
             
             <div class="mt-2 flex space-x-2">
               <button id="start-button" class="button">Start</button>
@@ -351,8 +366,8 @@
             
             <div id="chart-container" class="mt-2">
               <h3 class="text-sm font-semibold mb-1">Disease Progression</h3>
-              <!-- Further reduced chart size -->
-              <svg id="chart-svg" width="50" height="15" style="border: 1px solid #ccc; display: none;">
+              <!-- Increased chart size to match canvas -->
+              <svg id="chart-svg" width="250" height="60" style="border: 1px solid #ccc; display: none;">
                 <!-- Chart will be rendered here -->
               </svg>
               
@@ -377,7 +392,7 @@
             </div>
           </div>
           
-          <div class="w-full md:w-1/3 mt-4 md:mt-0">
+          <div class="w-full md:w-3/10 mt-4 md:mt-0" style="width: 30%;">
             <h3 class="text-sm font-semibold mb-1">Simulation Parameters</h3>
             
             <div class="mb-2">
@@ -682,8 +697,8 @@
           id: i,
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          dx: (Math.random() - 0.5) * 0.8, // Reduced speed further
-          dy: (Math.random() - 0.5) * 0.8, // Reduced speed further
+          dx: (Math.random() - 0.5) * 1.5, // Increased speed for larger canvas
+          dy: (Math.random() - 0.5) * 1.5, // Increased speed for larger canvas
           state: i < initialInfected ? INFECTED : SUSCEPTIBLE,
           daysInfected: i < initialInfected ? 1 : 0,
           daysImmune: 0,
@@ -738,8 +753,8 @@
               Math.pow(agent.y - infectedAgent.y, 2)
             );
             
-            // Infection occurs within proximity (reduced for smaller canvas)
-            if (distance < 3) {  // Reduced further
+            // Infection occurs within proximity (increased for larger canvas)
+            if (distance < 10) {  // Increased for larger canvas
               let infectionChance = params.transmissionRate;
               
               // Reduce transmission if using bednets
@@ -836,19 +851,19 @@
             break;
         }
         
-        // Draw agent as a small rectangle (for better visibility at small size)
+        // Draw agent as a circle with better visibility
         ctx.fillStyle = color;
-        ctx.fillRect(Math.floor(agent.x), Math.floor(agent.y), 1, 1);
+        ctx.beginPath();
+        ctx.arc(Math.floor(agent.x), Math.floor(agent.y), 3, 0, Math.PI * 2);
+        ctx.fill();
         
         // Draw bednet indicator for non-dead agents with bednets
         if (agent.hasBednet && agent.state !== DEAD) {
           ctx.strokeStyle = '#ba68c8'; // Brighter purple for bednets
-          // Draw a tiny plus sign for better visibility on small canvas
+          ctx.lineWidth = 1;
+          // Draw a circle around the agent to represent bednet
           ctx.beginPath();
-          ctx.moveTo(Math.floor(agent.x) - 1, Math.floor(agent.y));
-          ctx.lineTo(Math.floor(agent.x) + 1, Math.floor(agent.y));
-          ctx.moveTo(Math.floor(agent.x), Math.floor(agent.y) - 1);
-          ctx.lineTo(Math.floor(agent.x), Math.floor(agent.y) + 1);
+          ctx.arc(Math.floor(agent.x), Math.floor(agent.y), 6, 0, Math.PI * 2);
           ctx.stroke();
         }
       });
@@ -868,8 +883,8 @@
         chartSvg.removeChild(chartSvg.firstChild);
       }
       
-      const chartHeight = 15; // Further reduced chart height
-      const chartWidth = 50; // Further reduced chart width
+      const chartHeight = 60; // Increased chart height
+      const chartWidth = 250; // Increased chart width
       const params = getSimulationParams();
       const maxValue = Math.max(
         params.population,
@@ -888,7 +903,7 @@
         polyline.setAttribute('points', points);
         polyline.setAttribute('fill', 'none');
         polyline.setAttribute('stroke', color);
-        polyline.setAttribute('stroke-width', '0.5'); // Reduced stroke width for smaller chart
+        polyline.setAttribute('stroke-width', '1.5'); // Increased stroke width for better visibility
         
         chartSvg.appendChild(polyline);
       };
@@ -900,7 +915,7 @@
       xAxis.setAttribute('x2', chartWidth);
       xAxis.setAttribute('y2', chartHeight);
       xAxis.setAttribute('stroke', '#333');
-      xAxis.setAttribute('stroke-width', '0.3'); // Reduced stroke width
+      xAxis.setAttribute('stroke-width', '1'); // Increased stroke width
       chartSvg.appendChild(xAxis);
       
       // Y-axis
@@ -910,7 +925,7 @@
       yAxis.setAttribute('x2', '0');
       yAxis.setAttribute('y2', chartHeight);
       yAxis.setAttribute('stroke', '#333');
-      yAxis.setAttribute('stroke-width', '0.3'); // Reduced stroke width
+      yAxis.setAttribute('stroke-width', '1'); // Increased stroke width
       chartSvg.appendChild(yAxis);
       
       // Create paths for each data series with brighter colors
