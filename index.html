@@ -5,232 +5,147 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Malaria Agent-Based Simulation</title>
   <style>
-    body {
+    /* General styling */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      line-height: 1.5;
-      color: #333;
-      max-width: 1200px;
-      margin: 0 auto;
+    }
+    
+    body {
+      background-color: #f9fafb;
       padding: 20px;
     }
     
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    /* Card styling */
     .card {
-      border: 1px solid #ddd;
+      background-color: white;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-      background: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 24px;
+      overflow: hidden;
     }
     
     .card-header {
-      padding: 15px 20px;
-      border-bottom: 1px solid #eee;
+      padding: 16px 24px;
+      border-bottom: 1px solid #e5e7eb;
     }
     
     .card-title {
-      margin: 0;
       font-size: 1.5rem;
       font-weight: 600;
+      color: #111827;
     }
     
     .card-content {
-      padding: 20px;
+      padding: 24px;
     }
     
-    .flex-row {
+    /* Layout */
+    .flex {
       display: flex;
-      flex-direction: row;
     }
     
     .flex-col {
-      display: flex;
       flex-direction: column;
-    }
-    
-    .flex-wrap {
-      flex-wrap: wrap;
-    }
-    
-    .w-full {
-      width: 100%;
-    }
-    
-    .w-2-3 {
-      width: 66.666667%;
-    }
-    
-    .w-1-3 {
-      width: 33.333333%;
-    }
-    
-    .mr-4 {
-      margin-right: 1rem;
-    }
-    
-    .mt-2 {
-      margin-top: 0.5rem;
-    }
-    
-    .mt-4 {
-      margin-top: 1rem;
-    }
-    
-    .mb-1 {
-      margin-bottom: 0.25rem;
-    }
-    
-    .mb-2 {
-      margin-bottom: 0.5rem;
-    }
-    
-    .mb-4 {
-      margin-bottom: 1rem;
-    }
-    
-    .p-2 {
-      padding: 0.5rem;
-    }
-    
-    .ml-6 {
-      margin-left: 1.5rem;
-    }
-    
-    .gap-3 {
-      gap: 0.75rem;
-    }
-    
-    .gap-x-4 {
-      column-gap: 1rem;
-    }
-    
-    .gap-y-1 {
-      row-gap: 0.25rem;
     }
     
     .items-center {
       align-items: center;
     }
     
-    button {
-      padding: 8px 16px;
-      border-radius: 4px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.2s;
-      margin-right: 10px;
+    .space-x-2 > * + * {
+      margin-left: 8px;
     }
     
-    button.primary {
-      background-color: #3b82f6;
-      color: white;
-      border: none;
+    .space-x-4 > * + * {
+      margin-left: 16px;
     }
     
-    button.primary:hover {
-      background-color: #2563eb;
+    .mt-2 {
+      margin-top: 8px;
     }
     
-    button.outline {
-      background-color: transparent;
-      color: #3b82f6;
-      border: 1px solid #3b82f6;
+    .mt-4 {
+      margin-top: 16px;
     }
     
-    button.outline:hover {
-      background-color: rgba(59, 130, 246, 0.05);
+    .mb-1 {
+      margin-bottom: 4px;
     }
     
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+    .mb-2 {
+      margin-bottom: 8px;
     }
     
-    input[type="range"] {
+    .mb-4 {
+      margin-bottom: 16px;
+    }
+    
+    .mb-6 {
+      margin-bottom: 24px;
+    }
+    
+    .mr-1 {
+      margin-right: 4px;
+    }
+    
+    .mr-2 {
+      margin-right: 8px;
+    }
+    
+    .mr-4 {
+      margin-right: 16px;
+    }
+    
+    .ml-6 {
+      margin-left: 24px;
+    }
+    
+    .p-4 {
+      padding: 16px;
+    }
+    
+    .gap-3 {
+      gap: 12px;
+    }
+    
+    .w-3 {
+      width: 12px;
+    }
+    
+    .h-3 {
+      height: 12px;
+    }
+    
+    .w-4 {
+      width: 16px;
+    }
+    
+    .h-4 {
+      height: 16px;
+    }
+    
+    .w-full {
       width: 100%;
-      margin: 8px 0;
     }
     
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 500;
+    .flex-wrap {
+      flex-wrap: wrap;
     }
     
-    .border {
-      border: 1px solid #e5e7eb;
+    .rounded-full {
+      border-radius: 50%;
     }
     
     .rounded {
       border-radius: 4px;
-    }
-    
-    .rounded-md {
-      border-radius: 6px;
-    }
-    
-    .rounded-full {
-      border-radius: 9999px;
-    }
-    
-    .border-l-2 {
-      border-left-width: 2px;
-      padding-left: 10px;
-    }
-    
-    .border-purple-400 {
-      border-left-color: #c084fc;
-    }
-    
-    .border-orange-400 {
-      border-left-color: #fb923c;
-    }
-    
-    .border-teal-400 {
-      border-left-color: #2dd4bf;
-    }
-    
-    .border-blue-400 {
-      border-left-color: #60a5fa;
-    }
-    
-    .border-2 {
-      border-width: 2px;
-    }
-    
-    .border-purple-500 {
-      border-color: #a855f7;
-    }
-    
-    .border-orange-500 {
-      border-color: #f97316;
-    }
-    
-    .border-teal-500 {
-      border-color: #14b8a6;
-    }
-    
-    .bg-gray-100 {
-      background-color: #f3f4f6;
-    }
-    
-    .bg-blue-500 {
-      background-color: #3b82f6;
-    }
-    
-    .bg-red-500 {
-      background-color: #ef4444;
-    }
-    
-    .bg-green-500 {
-      background-color: #22c55e;
-    }
-    
-    .bg-gray-500 {
-      background-color: #6b7280;
-    }
-    
-    .bg-blue-200 {
-      background-color: #bfdbfe;
     }
     
     .text-sm {
@@ -241,544 +156,550 @@
       font-size: 1.125rem;
     }
     
-    .text-blue-500 {
-      color: #3b82f6;
-    }
-    
-    .text-red-500 {
-      color: #ef4444;
-    }
-    
-    .text-green-500 {
-      color: #22c55e;
-    }
-    
-    .text-gray-500 {
-      color: #6b7280;
-    }
-    
-    .text-purple-500 {
-      color: #a855f7;
-    }
-    
-    .text-orange-500 {
-      color: #f97316;
-    }
-    
-    .text-teal-500 {
-      color: #14b8a6;
-    }
-    
-    .text-blue-300 {
-      color: #93c5fd;
+    .font-semibold {
+      font-weight: 600;
     }
     
     .font-medium {
       font-weight: 500;
     }
     
-    .font-semibold {
-      font-weight: 600;
+    .block {
+      display: block;
     }
     
-    .italic {
-      font-style: italic;
+    .border {
+      border: 1px solid #e5e7eb;
     }
     
+    .border-gray-300 {
+      border-color: #d1d5db;
+    }
+    
+    /* Colors */
+    .bg-blue-500 {
+      background-color: #3498db;
+    }
+    
+    .bg-red-500 {
+      background-color: #e74c3c;
+    }
+    
+    .bg-green-500 {
+      background-color: #2ecc71;
+    }
+    
+    .bg-gray-500 {
+      background-color: #7f8c8d;
+    }
+    
+    .text-blue-500 {
+      color: #3498db;
+    }
+    
+    .text-red-500 {
+      color: #e74c3c;
+    }
+    
+    .text-green-500 {
+      color: #2ecc71;
+    }
+    
+    .text-gray-500 {
+      color: #7f8c8d;
+    }
+    
+    /* Button styling */
+    .button {
+      padding: 8px 16px;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .button:hover:not(:disabled) {
+      background-color: #2563eb;
+    }
+    
+    .button:disabled {
+      background-color: #93c5fd;
+      cursor: not-allowed;
+    }
+    
+    .button-outline {
+      background-color: transparent;
+      color: #3b82f6;
+      border: 1px solid #3b82f6;
+    }
+    
+    .button-outline:hover:not(:disabled) {
+      background-color: #eff6ff;
+    }
+    
+    .button-outline:disabled {
+      color: #93c5fd;
+      border-color: #93c5fd;
+    }
+    
+    /* Slider styling */
+    .slider-container {
+      width: 100%;
+    }
+    
+    .slider {
+      width: 100%;
+      height: 5px;
+      border-radius: 5px;
+      background: #e5e7eb;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #3b82f6;
+      cursor: pointer;
+    }
+    
+    .slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #3b82f6;
+      cursor: pointer;
+    }
+    
+    /* List styling */
     .list-disc {
       list-style-type: disc;
-      padding-left: 1.5rem;
+      padding-left: 24px;
     }
     
-    .w-3 {
-      width: 0.75rem;
-    }
-    
-    .h-3 {
-      height: 0.75rem;
-    }
-    
-    .w-4 {
-      width: 1rem;
-    }
-    
-    .h-4 {
-      height: 1rem;
-    }
-    
-    .mr-1 {
-      margin-right: 0.25rem;
-    }
-    
-    canvas {
-      border: 1px solid #e5e7eb;
-      border-radius: 4px;
-      max-width: 100%;
-    }
-    
-    @media (max-width: 768px) {
-      .flex-row {
-        flex-direction: column;
+    /* Media Queries */
+    @media (min-width: 768px) {
+      .md\\:flex-row {
+        flex-direction: row;
       }
       
-      .w-2-3, .w-1-3 {
-        width: 100%;
+      .md\\:w-2\/3 {
+        width: 66.6666%;
+      }
+      
+      .md\\:w-1\/3 {
+        width: 33.3333%;
+      }
+      
+      .md\\:pr-4 {
+        padding-right: 16px;
+      }
+      
+      .md\\:mt-0 {
+        margin-top: 0;
       }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="card-header">
-      <h2 class="card-title">Malaria Agent-Based Simulation</h2>
-    </div>
-    <div class="card-content">
-      <div class="flex-row">
-        <div class="w-2-3 mr-4">
-          <canvas id="simulationCanvas" width="600" height="400" class="border rounded w-full"></canvas>
-          
-          <div class="mt-4 flex-row">
-            <button id="startBtn" class="primary">Start</button>
-            <button id="pauseBtn" class="outline" disabled>Pause</button>
-            <button id="resetBtn" class="outline">Reset</button>
-          </div>
-          
-          <div id="statusIndicators" class="mt-4 flex-row flex-wrap gap-3">
-            <!-- Will be populated by JavaScript -->
-          </div>
-          
-          <div id="activeInterventions" class="mt-4 p-2 bg-gray-100 rounded-md text-sm">
-            <!-- Will be populated by JavaScript -->
-          </div>
-          
-          <div class="mt-2">
-            <p id="dayCounter">Day: 0</p>
-          </div>
-          
-          <div id="chartContainer" class="mt-4">
-            <!-- Will be populated by JavaScript -->
-          </div>
-        </div>
-        
-        <div class="w-1-3 mt-4">
-          <h3 class="text-lg font-semibold mb-2">Simulation Parameters</h3>
-          
-          <div class="mb-4">
-            <label for="population" class="mb-1">
-              Population: <span id="populationValue">200</span>
-            </label>
-            <input type="range" id="population" min="10" max="500" step="10" value="200">
-          </div>
-          
-          <div class="mb-4">
-            <label for="initialInfected" class="mb-1">
-              Initial Infected: <span id="initialInfectedValue">5</span>
-            </label>
-            <input type="range" id="initialInfected" min="1" max="50" step="1" value="5">
-          </div>
-          
-          <div class="mb-4">
-            <label for="transmissionRate" class="mb-1">
-              Transmission Rate: <span id="transmissionRateValue">0.40</span>
-            </label>
-            <input type="range" id="transmissionRate" min="0.1" max="0.9" step="0.05" value="0.4">
-          </div>
-          
-          <div class="mb-4">
-            <label for="recoveryRate" class="mb-1">
-              Recovery Rate: <span id="recoveryRateValue">0.10</span>
-            </label>
-            <input type="range" id="recoveryRate" min="0.01" max="0.3" step="0.01" value="0.1">
-          </div>
-          
-          <div class="mb-4">
-            <label for="mortalityRate" class="mb-1">
-              Mortality Rate: <span id="mortalityRateValue">0.03</span>
-            </label>
-            <input type="range" id="mortalityRate" min="0" max="0.2" step="0.01" value="0.03">
-          </div>
-          
-          <div class="mb-4">
-            <label for="immunityPeriod" class="mb-1">
-              Immunity Period (days): <span id="immunityPeriodValue">30</span>
-            </label>
-            <input type="range" id="immunityPeriod" min="0" max="100" step="5" value="30">
-          </div>
-          
-          <h3 class="text-md font-semibold mt-4 mb-2">Interventions</h3>
-          
-          <!-- Bed Nets -->
-          <div class="mb-3 border-l-2 border-purple-400 pl-2">
-            <div class="flex-row items-center mb-2">
-              <input type="checkbox" id="useBednets" class="mr-2">
-              <label for="useBednets" style="display: inline;">Insecticide-Treated Bed Nets</label>
+  <div class="container">
+    <div class="card mb-6">
+      <div class="card-header">
+        <h2 class="card-title">Malaria Agent-Based Simulation</h2>
+      </div>
+      <div class="card-content">
+        <div class="flex flex-col md:flex-row">
+          <div class="w-full md:w-2/3 md:pr-4">
+            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="600" height="400"></canvas>
+            
+            <div class="mt-4 flex space-x-2">
+              <button id="start-button" class="button">Start</button>
+              <button id="pause-button" class="button button-outline" disabled>Pause</button>
+              <button id="reset-button" class="button button-outline">Reset</button>
             </div>
             
-            <div id="bednetControls" style="display: none;">
-              <div class="ml-6 mb-2">
-                <label for="bednetCoverage" class="mb-1 text-sm">
-                  Coverage: <span id="bednetCoverageValue">50</span>%
-                </label>
-                <input type="range" id="bednetCoverage" min="0" max="1" step="0.05" value="0.5">
+            <div class="mt-4 flex flex-wrap gap-3">
+              <div class="flex items-center mr-4">
+                <div class="w-4 h-4 bg-blue-500 mr-1 rounded-full"></div>
+                <span>Susceptible: <span id="susceptible-count">0</span></span>
+              </div>
+              <div class="flex items-center mr-4">
+                <div class="w-4 h-4 bg-red-500 mr-1 rounded-full"></div>
+                <span>Infected: <span id="infected-count">0</span></span>
+              </div>
+              <div class="flex items-center mr-4">
+                <div class="w-4 h-4 bg-green-500 mr-1 rounded-full"></div>
+                <span>Recovered: <span id="recovered-count">0</span></span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-4 h-4 bg-gray-500 mr-1 rounded-full"></div>
+                <span>Dead: <span id="dead-count">0</span></span>
+              </div>
+            </div>
+            
+            <div class="mt-2">
+              <p>Day: <span id="day-count">0</span></p>
+            </div>
+            
+            <div class="mt-4">
+              <h3 class="text-lg font-semibold mb-2">Disease Progression</h3>
+              <svg id="chart-svg" width="600" height="150" style="border: 1px solid #ccc; display: none;">
+                <!-- Chart will be rendered here -->
+              </svg>
+              
+              <div class="flex mt-2 space-x-4">
+                <div class="flex items-center">
+                  <div class="w-3 h-3 bg-blue-500 mr-1"></div>
+                  <span class="text-sm">Susceptible</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-3 h-3 bg-red-500 mr-1"></div>
+                  <span class="text-sm">Infected</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-3 h-3 bg-green-500 mr-1"></div>
+                  <span class="text-sm">Recovered</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-3 h-3 bg-gray-500 mr-1"></div>
+                  <span class="text-sm">Dead</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="w-full md:w-1/3 mt-4 md:mt-0">
+            <h3 class="text-lg font-semibold mb-2">Simulation Parameters</h3>
+            
+            <div class="mb-4">
+              <label for="population" class="block mb-1">
+                Population: <span id="population-value">200</span>
+              </label>
+              <div class="slider-container">
+                <input 
+                  type="range" 
+                  id="population" 
+                  class="slider" 
+                  min="10" 
+                  max="500" 
+                  step="10" 
+                  value="200"
+                >
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <label for="initialInfected" class="block mb-1">
+                Initial Infected: <span id="initialInfected-value">5</span>
+              </label>
+              <div class="slider-container">
+                <input 
+                  type="range" 
+                  id="initialInfected" 
+                  class="slider" 
+                  min="1" 
+                  max="50" 
+                  step="1" 
+                  value="5"
+                >
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <label for="transmissionRate" class="block mb-1">
+                Transmission Rate: <span id="transmissionRate-value">0.40</span>
+              </label>
+              <div class="slider-container">
+                <input 
+                  type="range" 
+                  id="transmissionRate" 
+                  class="slider" 
+                  min="0.1" 
+                  max="0.9" 
+                  step="0.05" 
+                  value="0.4"
+                >
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <label for="recoveryRate" class="block mb-1">
+                Recovery Rate: <span id="recoveryRate-value">0.10</span>
+              </label>
+              <div class="slider-container">
+                <input 
+                  type="range" 
+                  id="recoveryRate" 
+                  class="slider" 
+                  min="0.01" 
+                  max="0.3" 
+                  step="0.01" 
+                  value="0.1"
+                >
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <label for="mortalityRate" class="block mb-1">
+                Mortality Rate: <span id="mortalityRate-value">0.03</span>
+              </label>
+              <div class="slider-container">
+                <input 
+                  type="range" 
+                  id="mortalityRate" 
+                  class="slider" 
+                  min="0" 
+                  max="0.2" 
+                  step="0.01" 
+                  value="0.03"
+                >
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <label for="immunityPeriod" class="block mb-1">
+                Immunity Period (days): <span id="immunityPeriod-value">30</span>
+              </label>
+              <div class="slider-container">
+                <input 
+                  type="range" 
+                  id="immunityPeriod" 
+                  class="slider" 
+                  min="0" 
+                  max="100" 
+                  step="5" 
+                  value="30"
+                >
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <div class="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  id="useBednets"
+                  class="mr-2"
+                >
+                <label for="useBednets">Use Bed Nets</label>
               </div>
               
-              <div class="ml-6 mb-2">
-                <label for="bednetEfficacy" class="mb-1 text-sm">
-                  Efficacy: <span id="bednetEfficacyValue">70</span>%
-                </label>
-                <input type="range" id="bednetEfficacy" min="0" max="1" step="0.05" value="0.7">
-              </div>
-            </div>
-          </div>
-          
-          <!-- Indoor Residual Spraying -->
-          <div class="mb-3 border-l-2 border-orange-400 pl-2">
-            <div class="flex-row items-center mb-2">
-              <input type="checkbox" id="useIRS" class="mr-2">
-              <label for="useIRS" style="display: inline;">Indoor Residual Spraying (IRS)</label>
-            </div>
-            
-            <div id="irsControls" style="display: none;">
-              <div class="ml-6 mb-2">
-                <label for="irsCoverage" class="mb-1 text-sm">
-                  Coverage: <span id="irsCoverageValue">30</span>%
-                </label>
-                <input type="range" id="irsCoverage" min="0" max="1" step="0.05" value="0.3">
-              </div>
-              
-              <div class="ml-6 mb-2">
-                <label for="irsEfficacy" class="mb-1 text-sm">
-                  Efficacy: <span id="irsEfficacyValue">60</span>%
-                </label>
-                <input type="range" id="irsEfficacy" min="0" max="1" step="0.05" value="0.6">
-              </div>
-            </div>
-          </div>
-          
-          <!-- Antimalarial Drugs -->
-          <div class="mb-3 border-l-2 border-teal-400 pl-2">
-            <div class="flex-row items-center mb-2">
-              <input type="checkbox" id="useAntimalarials" class="mr-2">
-              <label for="useAntimalarials" style="display: inline;">Antimalarial Medications</label>
-            </div>
-            
-            <div id="antimalarialControls" style="display: none;">
-              <div class="ml-6 mb-2">
-                <label for="antimalarialCoverage" class="mb-1 text-sm">
-                  Coverage: <span id="antimalarialCoverageValue">20</span>%
-                </label>
-                <input type="range" id="antimalarialCoverage" min="0" max="1" step="0.05" value="0.2">
-              </div>
-              
-              <div class="ml-6 mb-2">
-                <label for="antimalarialEfficacy" class="mb-1 text-sm">
-                  Efficacy: <span id="antimalarialEfficacyValue">80</span>%
-                </label>
-                <input type="range" id="antimalarialEfficacy" min="0" max="1" step="0.05" value="0.8">
-              </div>
-            </div>
-          </div>
-          
-          <!-- Mosquito Control -->
-          <div class="mb-3 border-l-2 border-blue-400 pl-2">
-            <div class="flex-row items-center mb-2">
-              <input type="checkbox" id="useMosquitoControl" class="mr-2">
-              <label for="useMosquitoControl" style="display: inline;">Mosquito Control Measures</label>
-            </div>
-            
-            <div id="mosquitoControlControls" style="display: none;">
-              <div class="ml-6 mb-2">
-                <label for="mosquitoControlIntensity" class="mb-1 text-sm">
-                  Intensity: <span id="mosquitoControlIntensityValue">40</span>%
-                </label>
-                <input type="range" id="mosquitoControlIntensity" min="0" max="0.9" step="0.05" value="0.4">
+              <div id="bednet-options" style="display: none;">
+                <div class="ml-6 mb-4">
+                  <label for="bednetCoverage" class="block mb-1">
+                    Bed Net Coverage: <span id="bednetCoverage-value">50</span>%
+                  </label>
+                  <div class="slider-container">
+                    <input 
+                      type="range" 
+                      id="bednetCoverage" 
+                      class="slider" 
+                      min="0" 
+                      max="1" 
+                      step="0.05" 
+                      value="0.5"
+                    >
+                  </div>
+                </div>
+                
+                <div class="ml-6 mb-4">
+                  <label for="bednetEfficacy" class="block mb-1">
+                    Bed Net Efficacy: <span id="bednetEfficacy-value">70</span>%
+                  </label>
+                  <div class="slider-container">
+                    <input 
+                      type="range" 
+                      id="bednetEfficacy" 
+                      class="slider" 
+                      min="0" 
+                      max="1" 
+                      step="0.05" 
+                      value="0.7"
+                    >
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <h2 class="card-title">About This Simulation</h2>
-    </div>
-    <div class="card-content">
-      <p class="mb-2">
-        This is a simplified agent-based model of malaria transmission in a population. 
-        Each dot represents a person who can be in one of four states:
-      </p>
-      
-      <ul class="list-disc mb-4">
-        <li><span class="text-blue-500 font-medium">Susceptible (Blue)</span>: Can become infected when near infected individuals</li>
-        <li><span class="text-red-500 font-medium">Infected (Red)</span>: Has malaria and can spread it to susceptible individuals</li>
-        <li><span class="text-green-500 font-medium">Recovered (Green)</span>: Temporarily immune to malaria</li>
-        <li><span class="text-gray-500 font-medium">Dead (Gray)</span>: Deceased due to malaria complications</li>
-      </ul>
-      
-      <p class="mb-2">
-        The colored circles around individuals represent different interventions:
-      </p>
-      
-      <ul class="list-disc mb-4">
-        <li><span class="text-purple-500 font-medium">Purple circles</span>: Insecticide-treated bed nets</li>
-        <li><span class="text-orange-500 font-medium">Orange circles</span>: Indoor residual spraying (IRS)</li>
-        <li><span class="text-teal-500 font-medium">Teal circles</span>: Antimalarial medications</li>
-        <li><span class="text-blue-300 font-medium">Blue background</span>: Mosquito control measures (larvicides, drain clearing, etc.)</li>
-      </ul>
-      
-      <p>
-        Adjust the parameters to see how different factors and interventions affect the spread of malaria in the population.
-        Try different intervention combinations to find optimal strategies for malaria control and elimination.
-      </p>
+    
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">About This Simulation</h2>
+      </div>
+      <div class="card-content">
+        <h3 class="text-lg font-semibold mb-2">Goal and Utility</h3>
+        <p class="mb-4">
+          This interactive simulation aims to demonstrate how infectious diseases like malaria spread through populations and how public health interventions (like bed nets) can impact disease dynamics. It serves as an educational tool for understanding:
+        </p>
+        <ul class="list-disc pl-6 mb-4">
+          <li>Basic epidemiological concepts (transmission, recovery, immunity)</li>
+          <li>The impact of different parameters on disease spread</li>
+          <li>How preventive measures like bed nets can reduce transmission</li>
+          <li>Population-level effects of individual interventions</li>
+        </ul>
+        
+        <h3 class="text-lg font-semibold mb-2">Controls</h3>
+        <ul class="list-disc pl-6 mb-4">
+          <li><strong>Start:</strong> Begins the simulation, allowing agents to move and interact, spreading the disease according to the set parameters</li>
+          <li><strong>Pause:</strong> Temporarily halts the simulation while preserving the current state, allowing you to study the current situation or adjust ongoing parameters</li>
+          <li><strong>Reset:</strong> Returns the simulation to its initial state with the current parameter settings, allowing you to run multiple scenarios with the same configuration</li>
+        </ul>
+        
+        <h3 class="text-lg font-semibold mb-2">Simulation Details</h3>
+        <p class="mb-2">
+          This is a simplified agent-based model of malaria transmission in a population. 
+          Each dot represents a person who can be in one of four states:
+        </p>
+        
+        <ul class="list-disc pl-6 mb-4">
+          <li><span class="text-blue-500 font-medium">Susceptible (Blue)</span>: Can become infected when near infected individuals</li>
+          <li><span class="text-red-500 font-medium">Infected (Red)</span>: Has malaria and can spread it to susceptible individuals</li>
+          <li><span class="text-green-500 font-medium">Recovered (Green)</span>: Temporarily immune to malaria</li>
+          <li><span class="text-gray-500 font-medium">Dead (Gray)</span>: Deceased due to malaria complications</li>
+        </ul>
+        
+        <p class="mb-2">
+          The purple circles around some individuals represent bed nets, which reduce the chance of malaria transmission.
+        </p>
+        
+        <p>
+          Adjust the parameters to see how different factors affect the spread of malaria in the population.
+          Try scenarios with different intervention strategies by changing the bed net coverage and efficacy.
+        </p>
+      </div>
     </div>
   </div>
 
   <script>
-    // Agent states
+    // Constants
     const SUSCEPTIBLE = 'susceptible';
     const INFECTED = 'infected';
     const RECOVERED = 'recovered';
     const DEAD = 'dead';
 
-    // Constants and defaults
-    const DEFAULT_POPULATION = 200;
-    const DEFAULT_INITIAL_INFECTED = 5;
-    const DEFAULT_TRANSMISSION_RATE = 0.4;
-    const DEFAULT_RECOVERY_RATE = 0.1;
-    const DEFAULT_MORTALITY_RATE = 0.03;
-    const DEFAULT_IMMUNITY_PERIOD = 30;
-    const DEFAULT_USE_BEDNETS = false;
-    const DEFAULT_BEDNET_COVERAGE = 0.5;
-    const DEFAULT_BEDNET_EFFICACY = 0.7;
-    
     // Simulation state
     let agents = [];
     let day = 0;
     let isRunning = false;
-    let animationId = null;
     let statistics = {
       susceptible: 0,
       infected: 0,
       recovered: 0,
-      dead: 0,
+      dead: 0
     };
     let history = [];
-    
-    // Get DOM elements
-    const canvas = document.getElementById('simulationCanvas');
+    let animationId = null;
+
+    // DOM elements
+    const canvas = document.getElementById('simulation-canvas');
     const ctx = canvas.getContext('2d');
-    const startBtn = document.getElementById('startBtn');
-    const pauseBtn = document.getElementById('pauseBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const dayCounter = document.getElementById('dayCounter');
-    const statusIndicators = document.getElementById('statusIndicators');
-    const activeInterventions = document.getElementById('activeInterventions');
-    const chartContainer = document.getElementById('chartContainer');
-    
-    // Parameters
-    let population = DEFAULT_POPULATION;
-    let initialInfected = DEFAULT_INITIAL_INFECTED;
-    let transmissionRate = DEFAULT_TRANSMISSION_RATE;
-    let recoveryRate = DEFAULT_RECOVERY_RATE;
-    let mortalityRate = DEFAULT_MORTALITY_RATE;
-    let immunityPeriod = DEFAULT_IMMUNITY_PERIOD;
-    
-    // Intervention parameters
-    let useBednets = DEFAULT_USE_BEDNETS;
-    let bednetCoverage = DEFAULT_BEDNET_COVERAGE;
-    let bednetEfficacy = DEFAULT_BEDNET_EFFICACY;
-    let useIRS = false;
-    let irsCoverage = 0.3;
-    let irsEfficacy = 0.6;
-    let useAntimalarials = false;
-    let antimalarialCoverage = 0.2;
-    let antimalarialEfficacy = 0.8;
-    let useMosquitoControl = false;
-    let mosquitoControlIntensity = 0.4;
-    
-    // Initialize parameter controls
-    document.getElementById('population').addEventListener('input', function() {
-      population = parseInt(this.value);
-      document.getElementById('populationValue').textContent = population;
-      if (!isRunning) {
-        initializeAgents();
-      }
-    });
-    
-    document.getElementById('initialInfected').addEventListener('input', function() {
-      initialInfected = parseInt(this.value);
-      document.getElementById('initialInfectedValue').textContent = initialInfected;
-      if (!isRunning) {
-        initializeAgents();
-      }
-    });
-    
-    document.getElementById('transmissionRate').addEventListener('input', function() {
-      transmissionRate = parseFloat(this.value);
-      document.getElementById('transmissionRateValue').textContent = transmissionRate.toFixed(2);
-    });
-    
-    document.getElementById('recoveryRate').addEventListener('input', function() {
-      recoveryRate = parseFloat(this.value);
-      document.getElementById('recoveryRateValue').textContent = recoveryRate.toFixed(2);
-    });
-    
-    document.getElementById('mortalityRate').addEventListener('input', function() {
-      mortalityRate = parseFloat(this.value);
-      document.getElementById('mortalityRateValue').textContent = mortalityRate.toFixed(2);
-    });
-    
-    document.getElementById('immunityPeriod').addEventListener('input', function() {
-      immunityPeriod = parseInt(this.value);
-      document.getElementById('immunityPeriodValue').textContent = immunityPeriod;
-    });
-    
-    // Bed nets controls
-    document.getElementById('useBednets').addEventListener('change', function() {
-      useBednets = this.checked;
-      document.getElementById('bednetControls').style.display = useBednets ? 'block' : 'none';
-      if (!isRunning) {
-        initializeAgents();
-      }
-    });
-    
-    document.getElementById('bednetCoverage').addEventListener('input', function() {
-      bednetCoverage = parseFloat(this.value);
-      document.getElementById('bednetCoverageValue').textContent = Math.round(bednetCoverage * 100);
-      if (!isRunning) {
-        initializeAgents();
-      }
-    });
-    
-    document.getElementById('bednetEfficacy').addEventListener('input', function() {
-      bednetEfficacy = parseFloat(this.value);
-      document.getElementById('bednetEfficacyValue').textContent = Math.round(bednetEfficacy * 100);
-    });
-    
-    // IRS controls
-    document.getElementById('useIRS').addEventListener('change', function() {
-      useIRS = this.checked;
-      document.getElementById('irsControls').style.display = useIRS ? 'block' : 'none';
-      if (!isRunning) {
-        initializeAgents();
-      }
-    });
-    
-    document.getElementById('irsCoverage').addEventListener('input', function() {
-      irsCoverage = parseFloat(this.value);
-      document.getElementById('irsCoverageValue').textContent = Math.round(irsCoverage * 100);
-      if (!isRunning) {
-        initializeAgents();
-      }
-    });
-    
-    document.getElementById('irsEfficacy').addEventListener('input', function() {
-      irsEfficacy = parseFloat(this.value);
-      document.getElementById('irsEfficacyValue').textContent = Math.round(irsEfficacy * 100);
-    });
-    
-    // Antimalarial controls
-    document.getElementById('useAntimalarials').addEventListener('change', function() {
-      useAntimalarials = this.checked;
-      document.getElementById('antimalarialControls').style.display = useAntimalarials ? 'block' : 'none';
-      if (!isRunning) {
-        initializeAgents();
-      }
-    });
-    
-    document.getElementById('antimalarialCoverage').addEventListener('input', function() {
-      antimalarialCoverage = parseFloat(this.value);
-      document.getElementById('antimalarialCoverageValue').textContent = Math.round(antimalarialCoverage * 100);
-      if (!isRunning) {
-        initializeAgents();
-      }
-    });
-    
-    document.getElementById('antimalarialEfficacy').addEventListener('input', function() {
-      antimalarialEfficacy = parseFloat(this.value);
-      document.getElementById('antimalarialEfficacyValue').textContent = Math.round(antimalarialEfficacy * 100);
-    });
-    
-    // Mosquito control controls
-    document.getElementById('useMosquitoControl').addEventListener('change', function() {
-      useMosquitoControl = this.checked;
-      document.getElementById('mosquitoControlControls').style.display = useMosquitoControl ? 'block' : 'none';
-      if (!isRunning) {
-        initializeAgents();
-      }
-    });
-    
-    document.getElementById('mosquitoControlIntensity').addEventListener('input', function() {
-      mosquitoControlIntensity = parseFloat(this.value);
-      document.getElementById('mosquitoControlIntensityValue').textContent = Math.round(mosquitoControlIntensity * 100);
-    });
-    
-    // Button event listeners
-    startBtn.addEventListener('click', startSimulation);
-    pauseBtn.addEventListener('click', stopSimulation);
-    resetBtn.addEventListener('click', resetSimulation);
-    
+    const startButton = document.getElementById('start-button');
+    const pauseButton = document.getElementById('pause-button');
+    const resetButton = document.getElementById('reset-button');
+    const dayCount = document.getElementById('day-count');
+    const susceptibleCount = document.getElementById('susceptible-count');
+    const infectedCount = document.getElementById('infected-count');
+    const recoveredCount = document.getElementById('recovered-count');
+    const deadCount = document.getElementById('dead-count');
+    const chartSvg = document.getElementById('chart-svg');
+    const useBednetsCheckbox = document.getElementById('useBednets');
+    const bednetOptions = document.getElementById('bednet-options');
+
+    // Parameter elements
+    const populationSlider = document.getElementById('population');
+    const populationValue = document.getElementById('population-value');
+    const initialInfectedSlider = document.getElementById('initialInfected');
+    const initialInfectedValue = document.getElementById('initialInfected-value');
+    const transmissionRateSlider = document.getElementById('transmissionRate');
+    const transmissionRateValue = document.getElementById('transmissionRate-value');
+    const recoveryRateSlider = document.getElementById('recoveryRate');
+    const recoveryRateValue = document.getElementById('recoveryRate-value');
+    const mortalityRateSlider = document.getElementById('mortalityRate');
+    const mortalityRateValue = document.getElementById('mortalityRate-value');
+    const immunityPeriodSlider = document.getElementById('immunityPeriod');
+    const immunityPeriodValue = document.getElementById('immunityPeriod-value');
+    const bednetCoverageSlider = document.getElementById('bednetCoverage');
+    const bednetCoverageValue = document.getElementById('bednetCoverage-value');
+    const bednetEfficacySlider = document.getElementById('bednetEfficacy');
+    const bednetEfficacyValue = document.getElementById('bednetEfficacy-value');
+
+    // Get simulation parameters
+    function getSimulationParams() {
+      return {
+        population: parseInt(populationSlider.value, 10),
+        initialInfected: parseInt(initialInfectedSlider.value, 10),
+        transmissionRate: parseFloat(transmissionRateSlider.value),
+        recoveryRate: parseFloat(recoveryRateSlider.value),
+        mortalityRate: parseFloat(mortalityRateSlider.value),
+        immunityPeriod: parseInt(immunityPeriodSlider.value, 10),
+        useBednets: useBednetsCheckbox.checked,
+        bednetCoverage: parseFloat(bednetCoverageSlider.value),
+        bednetEfficacy: parseFloat(bednetEfficacySlider.value)
+      };
+    }
+
     // Initialize agents
     function initializeAgents() {
+      const params = getSimulationParams();
+      const { population, initialInfected, useBednets, bednetCoverage } = params;
+      
       agents = [];
-      const canvasWidth = canvas.width;
-      const canvasHeight = canvas.height;
+      day = 0;
+      history = [];
       
       // Create random agents
       for (let i = 0; i < population; i++) {
-        // Assign interventions to agents based on coverage
         const hasBednet = useBednets && Math.random() < bednetCoverage;
-        const hasIRS = useIRS && Math.random() < irsCoverage;
-        const hasAntimalarials = useAntimalarials && Math.random() < antimalarialCoverage;
         
         agents.push({
           id: i,
-          x: Math.random() * canvasWidth,
-          y: Math.random() * canvasHeight,
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
           dx: (Math.random() - 0.5) * 2,
           dy: (Math.random() - 0.5) * 2,
           state: i < initialInfected ? INFECTED : SUSCEPTIBLE,
           daysInfected: i < initialInfected ? 1 : 0,
           daysImmune: 0,
-          hasBednet: hasBednet,
-          hasIRS: hasIRS,
-          hasAntimalarials: hasAntimalarials,
+          hasBednet: hasBednet
         });
       }
       
-      day = 0;
-      history = [];
+      // Update statistics
       updateStatistics();
+      
+      // Render initial state
       renderCanvas();
-      updateDayCounter();
-      updateInterventionsDisplay();
     }
-    
+
     // Update agent positions and states
     function updateAgents() {
-      const canvasWidth = canvas.width;
-      const canvasHeight = canvas.height;
+      const params = getSimulationParams();
       
-      // Update positions
+      // First update positions
       agents.forEach(agent => {
         // Skip movement for dead agents
-        if (agent.state === DEAD) {
-          return;
-        }
+        if (agent.state === DEAD) return;
         
         // Move agent
         let x = agent.x + agent.dx;
         let y = agent.y + agent.dy;
         
         // Bounce off walls
-        if (x < 0 || x > canvasWidth) {
-          x = Math.max(0, Math.min(x, canvasWidth));
+        if (x < 0 || x > canvas.width) {
+          x = Math.max(0, Math.min(x, canvas.width));
           agent.dx *= -1;
         }
-        if (y < 0 || y > canvasHeight) {
-          y = Math.max(0, Math.min(y, canvasHeight));
+        if (y < 0 || y > canvas.height) {
+          y = Math.max(0, Math.min(y, canvas.height));
           agent.dy *= -1;
         }
         
@@ -787,25 +708,10 @@
         agent.y = y;
       });
       
-      processAgentStates();
-      
-      day++;
-      updateStatistics();
-      updateDayCounter();
-    }
-    
-    // Process agent state transitions
-    function processAgentStates() {
-      // First pass: Check for new infections from infected to susceptible
+      // Process infections
       const infectedAgents = agents.filter(a => a.state === INFECTED);
       
-      // Calculate current mosquito population based on mosquito control
-      let mosquitoMultiplier = 1.0;
-      if (useMosquitoControl) {
-        mosquitoMultiplier = 1.0 - mosquitoControlIntensity;
-      }
-      
-      agents.forEach((agent, idx) => {
+      agents.forEach(agent => {
         if (agent.state === SUSCEPTIBLE) {
           // Check for infections from nearby infected agents
           for (const infectedAgent of infectedAgents) {
@@ -814,25 +720,13 @@
               Math.pow(agent.y - infectedAgent.y, 2)
             );
             
-            // Infection occurs within proximity, with reduced chance if interventions are used
+            // Infection occurs within proximity, with reduced chance if bednet is used
             if (distance < 15) {
-              // Base infection chance affected by mosquito population
-              let infectionChance = transmissionRate * mosquitoMultiplier;
+              let infectionChance = params.transmissionRate;
               
-              // Apply intervention effects (multiplicative protection)
-              // Bed nets reduce biting rate
+              // Reduce transmission if using bednets
               if (agent.hasBednet) {
-                infectionChance *= (1 - bednetEfficacy);
-              }
-              
-              // Indoor residual spraying kills mosquitoes in homes
-              if (agent.hasIRS) {
-                infectionChance *= (1 - irsEfficacy);
-              }
-              
-              // Antimalarials provide prophylactic protection
-              if (agent.hasAntimalarials) {
-                infectionChance *= (1 - antimalarialEfficacy);
+                infectionChance *= (1 - params.bednetEfficacy);
               }
               
               if (Math.random() < infectionChance) {
@@ -842,29 +736,20 @@
               }
             }
           }
-        } else if (agent.state === INFECTED) {
+        }
+      });
+      
+      // Process infected agents (recovery or death)
+      agents.forEach(agent => {
+        if (agent.state === INFECTED) {
           agent.daysInfected++;
           
-          // Modify recovery rate if agent has antimalarials (treatment effect)
-          let agentRecoveryRate = recoveryRate;
-          if (agent.hasAntimalarials) {
-            // Antimalarials improve recovery rate
-            agentRecoveryRate = recoveryRate * (1 + antimalarialEfficacy);
-          }
-          
-          // Modify mortality rate if agent has antimalarials (reduced complications)
-          let agentMortalityRate = mortalityRate;
-          if (agent.hasAntimalarials) {
-            // Antimalarials reduce mortality risk
-            agentMortalityRate = mortalityRate * (1 - antimalarialEfficacy);
-          }
-          
           // Recovery or death check
-          if (Math.random() < agentRecoveryRate) {
+          if (Math.random() < params.recoveryRate) {
             agent.state = RECOVERED;
             agent.daysInfected = 0;
             agent.daysImmune = 1;
-          } else if (Math.random() < agentMortalityRate) {
+          } else if (Math.random() < params.mortalityRate) {
             agent.state = DEAD;
             agent.daysInfected = 0;
           }
@@ -872,8 +757,264 @@
           agent.daysImmune++;
           
           // End of immunity period
-          if (agent.daysImmune > immunityPeriod) {
+          if (agent.daysImmune > params.immunityPeriod) {
             agent.state = SUSCEPTIBLE;
             agent.daysImmune = 0;
           }
         }
+      });
+      
+      // Update day counter
+      day++;
+      
+      // Update statistics
+      updateStatistics();
+    }
+
+    // Update statistics
+    function updateStatistics() {
+      statistics = {
+        susceptible: agents.filter(a => a.state === SUSCEPTIBLE).length,
+        infected: agents.filter(a => a.state === INFECTED).length,
+        recovered: agents.filter(a => a.state === RECOVERED).length,
+        dead: agents.filter(a => a.state === DEAD).length
+      };
+      
+      // Update display
+      susceptibleCount.textContent = statistics.susceptible;
+      infectedCount.textContent = statistics.infected;
+      recoveredCount.textContent = statistics.recovered;
+      deadCount.textContent = statistics.dead;
+      dayCount.textContent = day;
+      
+      // Add to history
+      history.push({ day, ...statistics });
+      
+      // Update chart
+      renderChart();
+    }
+
+    // Render agents on canvas
+    function renderCanvas() {
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw agents
+      agents.forEach(agent => {
+        // Set color based on state
+        let color = '#333';
+        switch (agent.state) {
+          case SUSCEPTIBLE:
+            color = '#3498db'; // Blue
+            break;
+          case INFECTED:
+            color = '#e74c3c'; // Red
+            break;
+          case RECOVERED:
+            color = '#2ecc71'; // Green
+            break;
+          case DEAD:
+            color = '#7f8c8d'; // Gray
+            break;
+        }
+        
+        ctx.fillStyle = color;
+        
+        // Draw agent
+        ctx.beginPath();
+        ctx.arc(agent.x, agent.y, 5, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Draw bednet indicator
+        if (agent.hasBednet && agent.state !== DEAD) {
+          ctx.strokeStyle = '#9b59b6'; // Purple for bednets
+          ctx.beginPath();
+          ctx.arc(agent.x, agent.y, 8, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+      });
+    }
+
+    // Render chart
+    function renderChart() {
+      if (history.length < 2) {
+        chartSvg.style.display = 'none';
+        return;
+      }
+      
+      chartSvg.style.display = 'block';
+      
+      // Clear previous chart
+      while (chartSvg.firstChild) {
+        chartSvg.removeChild(chartSvg.firstChild);
+      }
+      
+      const chartHeight = 150;
+      const chartWidth = 600;
+      const params = getSimulationParams();
+      const maxValue = Math.max(
+        params.population,
+        ...history.map(h => Math.max(h.susceptible, h.infected, h.recovered))
+      );
+      
+      // Scale points to chart size
+      const scaleY = (value) => chartHeight - (value / maxValue) * chartHeight;
+      const scaleX = (index) => (index / (history.length - 1 || 1)) * chartWidth;
+      
+      // Create SVG paths
+      const createPath = (dataKey, color) => {
+        const points = history.map((h, i) => `${scaleX(i)},${scaleY(h[dataKey])}`).join(' ');
+        
+        const polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        polyline.setAttribute('points', points);
+        polyline.setAttribute('fill', 'none');
+        polyline.setAttribute('stroke', color);
+        polyline.setAttribute('stroke-width', '2');
+        
+        chartSvg.appendChild(polyline);
+      };
+      
+      // X-axis
+      const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      xAxis.setAttribute('x1', '0');
+      xAxis.setAttribute('y1', chartHeight);
+      xAxis.setAttribute('x2', chartWidth);
+      xAxis.setAttribute('y2', chartHeight);
+      xAxis.setAttribute('stroke', '#333');
+      xAxis.setAttribute('stroke-width', '1');
+      chartSvg.appendChild(xAxis);
+      
+      // Y-axis
+      const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      yAxis.setAttribute('x1', '0');
+      yAxis.setAttribute('y1', '0');
+      yAxis.setAttribute('x2', '0');
+      yAxis.setAttribute('y2', chartHeight);
+      yAxis.setAttribute('stroke', '#333');
+      yAxis.setAttribute('stroke-width', '1');
+      chartSvg.appendChild(yAxis);
+      
+      // Create paths for each data series
+      createPath('susceptible', '#3498db');
+      createPath('infected', '#e74c3c');
+      createPath('recovered', '#2ecc71');
+      createPath('dead', '#7f8c8d');
+    }
+
+    // Animation frame handler
+    function animate() {
+      if (!isRunning) return;
+      
+      updateAgents();
+      renderCanvas();
+      
+      // Continue animation if there are still infected agents
+      if (statistics.infected > 0) {
+        animationId = requestAnimationFrame(animate);
+      } else {
+        stopSimulation();
+      }
+    }
+
+    // Start simulation
+    function startSimulation() {
+      if (isRunning || statistics.infected === 0) return;
+      
+      isRunning = true;
+      
+      // Update button states
+      startButton.disabled = true;
+      pauseButton.disabled = false;
+      
+      // Disable parameter controls
+      populationSlider.disabled = true;
+      initialInfectedSlider.disabled = true;
+      useBednetsCheckbox.disabled = true;
+      bednetCoverageSlider.disabled = true;
+      
+      // Start animation
+      animationId = requestAnimationFrame(animate);
+    }
+
+    // Stop simulation
+    function stopSimulation() {
+      isRunning = false;
+      
+      // Update button states
+      startButton.disabled = statistics.infected === 0;
+      pauseButton.disabled = true;
+      
+      // Enable parameter controls
+      populationSlider.disabled = false;
+      initialInfectedSlider.disabled = false;
+      useBednetsCheckbox.disabled = false;
+      bednetCoverageSlider.disabled = false;
+      
+      // Stop animation
+      cancelAnimationFrame(animationId);
+    }
+
+    // Reset simulation
+    function resetSimulation() {
+      stopSimulation();
+      initializeAgents();
+    }
+
+    // Event listeners for buttons
+    startButton.addEventListener('click', startSimulation);
+    pauseButton.addEventListener('click', stopSimulation);
+    resetButton.addEventListener('click', resetSimulation);
+
+    // Event listeners for sliders
+    populationSlider.addEventListener('input', function() {
+      populationValue.textContent = this.value;
+      
+      // Update max initial infected if needed
+      const maxInfected = Math.min(parseInt(this.value, 10), 50);
+      initialInfectedSlider.max = maxInfected;
+      
+      // Adjust initial infected if it's now over the max
+      if (parseInt(initialInfectedSlider.value, 10) > maxInfected) {
+        initialInfectedSlider.value = maxInfected;
+        initialInfectedValue.textContent = maxInfected;
+      }
+    });
+
+    initialInfectedSlider.addEventListener('input', function() {
+      initialInfectedValue.textContent = this.value;
+    });
+
+    transmissionRateSlider.addEventListener('input', function() {
+      transmissionRateValue.textContent = parseFloat(this.value).toFixed(2);
+    });
+
+    recoveryRateSlider.addEventListener('input', function() {
+      recoveryRateValue.textContent = parseFloat(this.value).toFixed(2);
+    });
+
+    mortalityRateSlider.addEventListener('input', function() {
+      mortalityRateValue.textContent = parseFloat(this.value).toFixed(2);
+    });
+
+    immunityPeriodSlider.addEventListener('input', function() {
+      immunityPeriodValue.textContent = this.value;
+    });
+
+    bednetCoverageSlider.addEventListener('input', function() {
+      bednetCoverageValue.textContent = Math.round(parseFloat(this.value) * 100);
+    });
+
+    bednetEfficacySlider.addEventListener('input', function() {
+      bednetEfficacyValue.textContent = Math.round(parseFloat(this.value) * 100);
+    });
+
+    // Toggle bed net options
+    useBednetsCheckbox.addEventListener('change', function() {
+      bednetOptions.style.display = this.checked ? 'block' : 'none';
+    });
+
+    // Initialize simulation on load
+    window.addEventListener('load', initializeAgents);
+  </script>
+</body>
+</html>
