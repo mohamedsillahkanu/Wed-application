@@ -20,7 +20,7 @@
     }
     
     .container {
-      max-width: 900px;
+      max-width: 800px;
       margin: 0 auto;
     }
     
@@ -177,37 +177,37 @@
       border-color: #d1d5db;
     }
     
-    /* Colors */
+    /* Colors - Brightened */
     .bg-blue-500 {
-      background-color: #3498db;
+      background-color: #2196f3; /* Brighter blue */
     }
     
     .bg-red-500 {
-      background-color: #e74c3c;
+      background-color: #ff5252; /* Brighter red */
     }
     
     .bg-green-500 {
-      background-color: #2ecc71;
+      background-color: #4caf50; /* Brighter green */
     }
     
     .bg-gray-500 {
-      background-color: #7f8c8d;
+      background-color: #9e9e9e; /* Brighter gray */
     }
     
     .text-blue-500 {
-      color: #3498db;
+      color: #2196f3; /* Brighter blue */
     }
     
     .text-red-500 {
-      color: #e74c3c;
+      color: #ff5252; /* Brighter red */
     }
     
     .text-green-500 {
-      color: #2ecc71;
+      color: #4caf50; /* Brighter green */
     }
     
     .text-gray-500 {
-      color: #7f8c8d;
+      color: #9e9e9e; /* Brighter gray */
     }
     
     /* Button styling */
@@ -318,8 +318,8 @@
       <div class="card-content">
         <div class="flex flex-col md:flex-row">
           <div class="w-full md:w-2/3 md:pr-2">
-            <!-- Canvas size reduced by 50% again (now 25% of original) -->
-            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="63" height="38"></canvas>
+            <!-- Further reduced canvas size (now 50x30) -->
+            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="50" height="30"></canvas>
             
             <div class="mt-2 flex space-x-2">
               <button id="start-button" class="button">Start</button>
@@ -351,8 +351,8 @@
             
             <div id="chart-container" class="mt-2">
               <h3 class="text-sm font-semibold mb-1">Disease Progression</h3>
-              <!-- Chart size reduced by 50% again -->
-              <svg id="chart-svg" width="63" height="20" style="border: 1px solid #ccc; display: none;">
+              <!-- Further reduced chart size -->
+              <svg id="chart-svg" width="50" height="15" style="border: 1px solid #ccc; display: none;">
                 <!-- Chart will be rendered here -->
               </svg>
               
@@ -558,7 +558,7 @@
       <div class="card-content">
         <h3 class="text-lg font-semibold mb-2">Goal and Utility</h3>
         <p class="mb-4">
-          This interactive simulation aims to demonstrate how infectious diseases like malaria spread through populations and how public health interventions (like bed nets) can impact disease dynamics. It serves as an educational tool for understanding:
+          This interactive simulation aims to demonstrate how infectious diseases like malaria spread through populations and how public health interventions (like bed nets) can impact disease dynamics.
         </p>
         <ul class="list-disc pl-6 mb-4">
           <li>Basic epidemiological concepts (transmission, recovery, immunity)</li>
@@ -569,9 +569,8 @@
         
         <h3 class="text-lg font-semibold mb-2">Controls</h3>
         <ul class="list-disc pl-6 mb-4">
-          <li><strong>Start:</strong> Begins the simulation, allowing agents to move and interact, spreading the disease according to the set parameters</li>
-          <li><strong>Pause:</strong> Temporarily halts the simulation while preserving the current state, allowing you to study the current situation or adjust ongoing parameters</li>
-          <li><strong>Reset:</strong> Returns the simulation to its initial state with the current parameter settings, allowing you to run multiple scenarios with the same configuration</li>
+          <li><strong>Start:</strong> Begins the simulation, allowing agents to move and interact</li>
+          <li><strong>Reset:</strong> Returns the simulation to its initial state with the current parameters</li>
         </ul>
         
         <h3 class="text-lg font-semibold mb-2">Simulation Details</h3>
@@ -588,12 +587,7 @@
         </ul>
         
         <p class="mb-2">
-          The purple circles around some individuals represent bed nets, which reduce the chance of malaria transmission.
-        </p>
-        
-        <p>
-          Adjust the parameters to see how different factors affect the spread of malaria in the population.
-          Try scenarios with different intervention strategies by changing the bed net coverage and efficacy.
+          The plus sign markers around some individuals represent bed nets, which reduce the chance of malaria transmission.
         </p>
       </div>
     </div>
@@ -624,7 +618,6 @@
     const canvas = document.getElementById('simulation-canvas');
     const ctx = canvas.getContext('2d');
     const startButton = document.getElementById('start-button');
-    const pauseButton = document.getElementById('pause-button');
     const resetButton = document.getElementById('reset-button');
     const dayCount = document.getElementById('day-count');
     const susceptibleCount = document.getElementById('susceptible-count');
@@ -689,8 +682,8 @@
           id: i,
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          dx: (Math.random() - 0.5) * 1, // Reduced speed by 50%
-          dy: (Math.random() - 0.5) * 1, // Reduced speed by 50%
+          dx: (Math.random() - 0.5) * 0.8, // Reduced speed further
+          dy: (Math.random() - 0.5) * 0.8, // Reduced speed further
           state: i < initialInfected ? INFECTED : SUSCEPTIBLE,
           daysInfected: i < initialInfected ? 1 : 0,
           daysImmune: 0,
@@ -745,8 +738,8 @@
               Math.pow(agent.y - infectedAgent.y, 2)
             );
             
-            // Infection occurs within proximity (reduced by 50%), with reduced chance if bednet is used
-            if (distance < 5) {  // Reduced from 10 to 5
+            // Infection occurs within proximity (reduced for smaller canvas)
+            if (distance < 3) {  // Reduced further
               let infectionChance = params.transmissionRate;
               
               // Reduce transmission if using bednets
@@ -826,32 +819,31 @@
       
       // Draw agents
       agents.forEach(agent => {
-        // Set color based on state
+        // Set color based on state (brighter colors)
         let color = '#333';
         switch (agent.state) {
           case SUSCEPTIBLE:
-            color = '#3498db'; // Blue
+            color = '#2196f3'; // Brighter blue
             break;
           case INFECTED:
-            color = '#e74c3c'; // Red
+            color = '#ff5252'; // Brighter red
             break;
           case RECOVERED:
-            color = '#2ecc71'; // Green
+            color = '#4caf50'; // Brighter green
             break;
           case DEAD:
-            color = '#7f8c8d'; // Gray
+            color = '#9e9e9e'; // Brighter gray
             break;
         }
         
+        // Draw agent as a small rectangle (for better visibility at small size)
         ctx.fillStyle = color;
-        
-        // Draw agent - reduced further for sharp rendering (using rectangles for sharpness)
         ctx.fillRect(Math.floor(agent.x), Math.floor(agent.y), 1, 1);
         
-        // Draw bednet indicator - simplified for smaller canvas
+        // Draw bednet indicator for non-dead agents with bednets
         if (agent.hasBednet && agent.state !== DEAD) {
-          ctx.strokeStyle = '#9b59b6'; // Purple for bednets
-          // Draw a tiny plus sign instead of a circle for better visibility at small scale
+          ctx.strokeStyle = '#ba68c8'; // Brighter purple for bednets
+          // Draw a tiny plus sign for better visibility on small canvas
           ctx.beginPath();
           ctx.moveTo(Math.floor(agent.x) - 1, Math.floor(agent.y));
           ctx.lineTo(Math.floor(agent.x) + 1, Math.floor(agent.y));
@@ -876,8 +868,8 @@
         chartSvg.removeChild(chartSvg.firstChild);
       }
       
-      const chartHeight = 40; // Reduced by 50%
-      const chartWidth = 125; // Reduced by 50%
+      const chartHeight = 15; // Further reduced chart height
+      const chartWidth = 50; // Further reduced chart width
       const params = getSimulationParams();
       const maxValue = Math.max(
         params.population,
@@ -896,7 +888,7 @@
         polyline.setAttribute('points', points);
         polyline.setAttribute('fill', 'none');
         polyline.setAttribute('stroke', color);
-        polyline.setAttribute('stroke-width', '1'); // Reduced from 2 to 1
+        polyline.setAttribute('stroke-width', '0.5'); // Reduced stroke width for smaller chart
         
         chartSvg.appendChild(polyline);
       };
@@ -908,7 +900,7 @@
       xAxis.setAttribute('x2', chartWidth);
       xAxis.setAttribute('y2', chartHeight);
       xAxis.setAttribute('stroke', '#333');
-      xAxis.setAttribute('stroke-width', '0.5'); // Reduced from 1 to 0.5
+      xAxis.setAttribute('stroke-width', '0.3'); // Reduced stroke width
       chartSvg.appendChild(xAxis);
       
       // Y-axis
@@ -918,143 +910,12 @@
       yAxis.setAttribute('x2', '0');
       yAxis.setAttribute('y2', chartHeight);
       yAxis.setAttribute('stroke', '#333');
-      yAxis.setAttribute('stroke-width', '0.5'); // Reduced from 1 to 0.5
+      yAxis.setAttribute('stroke-width', '0.3'); // Reduced stroke width
       chartSvg.appendChild(yAxis);
       
-      // Create paths for each data series
-      createPath('susceptible', '#3498db');
-      createPath('infected', '#e74c3c');
-      createPath('recovered', '#2ecc71');
-      createPath('dead', '#7f8c8d');
+      // Create paths for each data series with brighter colors
+      createPath('susceptible', '#2196f3'); // Brighter blue
+      createPath('infected', '#ff5252'); // Brighter red
+      createPath('recovered', '#4caf50'); // Brighter green
+      createPath('dead', '#9e9e9e'); // Brighter gray
     }
-
-    // Animation frame handler
-    function animate() {
-      if (!isRunning) return;
-      
-      updateAgents();
-      renderCanvas();
-      
-      // Continue animation if there are still infected agents and we haven't reached max days
-      if (statistics.infected > 0 && day < maxSimulationDays) {
-        animationId = requestAnimationFrame(animate);
-      } else {
-        stopSimulation();
-        startButton.textContent = "Start";
-        
-        // Show a message when simulation ends due to reaching max days
-        if (day >= maxSimulationDays && statistics.infected > 0) {
-          alert(`Simulation reached the maximum configured days (${maxSimulationDays}).`);
-        }
-      }
-    }
-
-    // Start simulation
-    function startSimulation() {
-      if (isRunning) {
-        // If running, stop it (toggle functionality)
-        stopSimulation();
-        return;
-      }
-      
-      isRunning = true;
-      
-      // Update button text and state
-      startButton.textContent = "Stop";
-      
-      // Disable parameter controls
-      populationSlider.disabled = true;
-      initialInfectedSlider.disabled = true;
-      useBednetsCheckbox.disabled = true;
-      bednetCoverageSlider.disabled = true;
-      
-      // Start animation
-      animationId = requestAnimationFrame(animate);
-    }
-
-    // Stop simulation
-    function stopSimulation() {
-      isRunning = false;
-      
-      // Update button text and state
-      startButton.textContent = "Start";
-      startButton.disabled = statistics.infected === 0;
-      
-      // Enable parameter controls
-      populationSlider.disabled = false;
-      initialInfectedSlider.disabled = false;
-      useBednetsCheckbox.disabled = false;
-      bednetCoverageSlider.disabled = false;
-      
-      // Stop animation
-      cancelAnimationFrame(animationId);
-    }
-
-    // Reset simulation
-    function resetSimulation() {
-      stopSimulation();
-      initializeAgents();
-    }
-
-    // Event listeners for buttons
-    startButton.addEventListener('click', startSimulation);
-    resetButton.addEventListener('click', resetSimulation);
-
-    // Event listeners for sliders
-    populationSlider.addEventListener('input', function() {
-      populationValue.textContent = this.value;
-      
-      // Update max initial infected if needed
-      const maxInfected = Math.min(parseInt(this.value, 10), 50);
-      initialInfectedSlider.max = maxInfected;
-      
-      // Adjust initial infected if it's now over the max
-      if (parseInt(initialInfectedSlider.value, 10) > maxInfected) {
-        initialInfectedSlider.value = maxInfected;
-        initialInfectedValue.textContent = maxInfected;
-      }
-    });
-
-    initialInfectedSlider.addEventListener('input', function() {
-      initialInfectedValue.textContent = this.value;
-    });
-
-    transmissionRateSlider.addEventListener('input', function() {
-      transmissionRateValue.textContent = parseFloat(this.value).toFixed(2);
-    });
-
-    recoveryRateSlider.addEventListener('input', function() {
-      recoveryRateValue.textContent = parseFloat(this.value).toFixed(2);
-    });
-
-    mortalityRateSlider.addEventListener('input', function() {
-      mortalityRateValue.textContent = parseFloat(this.value).toFixed(2);
-    });
-
-    immunityPeriodSlider.addEventListener('input', function() {
-      immunityPeriodValue.textContent = this.value;
-    });
-    
-    simulationDaysSlider.addEventListener('input', function() {
-      simulationDaysValue.textContent = this.value;
-      maxSimulationDays = parseInt(this.value, 10);
-    });
-
-    bednetCoverageSlider.addEventListener('input', function() {
-      bednetCoverageValue.textContent = Math.round(parseFloat(this.value) * 100);
-    });
-
-    bednetEfficacySlider.addEventListener('input', function() {
-      bednetEfficacyValue.textContent = Math.round(parseFloat(this.value) * 100);
-    });
-
-    // Toggle bed net options
-    useBednetsCheckbox.addEventListener('change', function() {
-      bednetOptions.style.display = this.checked ? 'block' : 'none';
-    });
-
-    // Initialize simulation on load
-    window.addEventListener('load', initializeAgents);
-  </script>
-</body>
-</html>
