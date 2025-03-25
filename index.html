@@ -318,7 +318,7 @@
       <div class="card-content">
         <div class="flex flex-col md:flex-row">
           <div class="w-full md:w-2/3 md:pr-4">
-            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="400" height="300"></canvas>
+            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="300" height="200"></canvas>
             
             <div class="mt-4 flex space-x-2">
               <button id="start-button" class="button">Start</button>
@@ -350,7 +350,7 @@
             
             <div id="chart-container" class="mt-4">
               <h3 class="text-lg font-semibold mb-2">Disease Progression</h3>
-              <svg id="chart-svg" width="400" height="120" style="border: 1px solid #ccc; display: none;">
+              <svg id="chart-svg" width="300" height="100" style="border: 1px solid #ccc; display: none;">
                 <!-- Chart will be rendered here -->
               </svg>
               
@@ -721,7 +721,7 @@
             );
             
             // Infection occurs within proximity, with reduced chance if bednet is used
-            if (distance < 15) {
+            if (distance < 10) {
               let infectionChance = params.transmissionRate;
               
               // Reduce transmission if using bednets
@@ -822,14 +822,14 @@
         
         // Draw agent
         ctx.beginPath();
-        ctx.arc(agent.x, agent.y, 5, 0, Math.PI * 2);
+        ctx.arc(agent.x, agent.y, 3, 0, Math.PI * 2);
         ctx.fill();
         
         // Draw bednet indicator
         if (agent.hasBednet && agent.state !== DEAD) {
           ctx.strokeStyle = '#9b59b6'; // Purple for bednets
           ctx.beginPath();
-          ctx.arc(agent.x, agent.y, 8, 0, Math.PI * 2);
+          ctx.arc(agent.x, agent.y, 5, 0, Math.PI * 2);
           ctx.stroke();
         }
       });
