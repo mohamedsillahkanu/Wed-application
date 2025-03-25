@@ -15,37 +15,37 @@
     
     body {
       background-color: #f9fafb;
-      padding: 10px;
-      font-size: 14px;
+      padding: 6px;
+      font-size: 12px;
     }
     
     .container {
-      max-width: 950px;
+      max-width: 900px;
       margin: 0 auto;
     }
     
     /* Card styling */
     .card {
       background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      margin-bottom: 24px;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 16px;
       overflow: hidden;
     }
     
     .card-header {
-      padding: 16px 24px;
+      padding: 8px 16px;
       border-bottom: 1px solid #e5e7eb;
     }
     
     .card-title {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       font-weight: 600;
       color: #111827;
     }
     
     .card-content {
-      padding: 24px;
+      padding: 16px;
     }
     
     /* Layout */
@@ -62,35 +62,35 @@
     }
     
     .space-x-2 > * + * {
-      margin-left: 8px;
+      margin-left: 6px;
     }
     
     .space-x-4 > * + * {
-      margin-left: 16px;
+      margin-left: 12px;
     }
     
     .mt-2 {
-      margin-top: 8px;
+      margin-top: 6px;
     }
     
     .mt-4 {
-      margin-top: 16px;
+      margin-top: 12px;
     }
     
     .mb-1 {
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
     
     .mb-2 {
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     
     .mb-4 {
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     
     .mb-6 {
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
     
     .mr-1 {
@@ -212,12 +212,12 @@
     
     /* Button styling */
     .button {
-      padding: 8px 16px;
+      padding: 4px 10px;
       background-color: #3b82f6;
       color: white;
       border: none;
-      border-radius: 4px;
-      font-size: 0.875rem;
+      border-radius: 3px;
+      font-size: 0.75rem;
       font-weight: 500;
       cursor: pointer;
       transition: background-color 0.2s;
@@ -317,40 +317,40 @@
       </div>
       <div class="card-content">
         <div class="flex flex-col md:flex-row">
-          <div class="w-full md:w-2/3 md:pr-4">
-            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="300" height="200"></canvas>
+          <div class="w-full md:w-2/3 md:pr-2">
+            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="250" height="150"></canvas>
             
-            <div class="mt-4 flex space-x-2">
+            <div class="mt-2 flex space-x-2">
               <button id="start-button" class="button">Start</button>
               <button id="reset-button" class="button button-outline">Reset</button>
             </div>
             
-            <div class="mt-4 flex flex-wrap gap-3">
-              <div class="flex items-center mr-4">
-                <div class="w-4 h-4 bg-blue-500 mr-1 rounded-full"></div>
-                <span>Susceptible: <span id="susceptible-count">0</span></span>
+            <div class="mt-2 flex flex-wrap gap-2">
+              <div class="flex items-center mr-2">
+                <div class="w-3 h-3 bg-blue-500 mr-1 rounded-full"></div>
+                <span style="font-size: 11px;">Susceptible: <span id="susceptible-count">0</span></span>
               </div>
-              <div class="flex items-center mr-4">
-                <div class="w-4 h-4 bg-red-500 mr-1 rounded-full"></div>
-                <span>Infected: <span id="infected-count">0</span></span>
+              <div class="flex items-center mr-2">
+                <div class="w-3 h-3 bg-red-500 mr-1 rounded-full"></div>
+                <span style="font-size: 11px;">Infected: <span id="infected-count">0</span></span>
               </div>
-              <div class="flex items-center mr-4">
-                <div class="w-4 h-4 bg-green-500 mr-1 rounded-full"></div>
-                <span>Recovered: <span id="recovered-count">0</span></span>
+              <div class="flex items-center mr-2">
+                <div class="w-3 h-3 bg-green-500 mr-1 rounded-full"></div>
+                <span style="font-size: 11px;">Recovered: <span id="recovered-count">0</span></span>
               </div>
               <div class="flex items-center">
-                <div class="w-4 h-4 bg-gray-500 mr-1 rounded-full"></div>
-                <span>Dead: <span id="dead-count">0</span></span>
+                <div class="w-3 h-3 bg-gray-500 mr-1 rounded-full"></div>
+                <span style="font-size: 11px;">Dead: <span id="dead-count">0</span></span>
               </div>
             </div>
             
-            <div class="mt-2">
-              <p>Day: <span id="day-count">0</span></p>
+            <div class="mt-1">
+              <p style="font-size: 11px;">Day: <span id="day-count">0</span></p>
             </div>
             
-            <div id="chart-container" class="mt-4">
-              <h3 class="text-lg font-semibold mb-2">Disease Progression</h3>
-              <svg id="chart-svg" width="300" height="100" style="border: 1px solid #ccc; display: none;">
+            <div id="chart-container" class="mt-2">
+              <h3 class="text-sm font-semibold mb-1">Disease Progression</h3>
+              <svg id="chart-svg" width="250" height="80" style="border: 1px solid #ccc; display: none;">
                 <!-- Chart will be rendered here -->
               </svg>
               
@@ -376,10 +376,10 @@
           </div>
           
           <div class="w-full md:w-1/3 mt-4 md:mt-0">
-            <h3 class="text-lg font-semibold mb-2">Simulation Parameters</h3>
+            <h3 class="text-sm font-semibold mb-1">Simulation Parameters</h3>
             
-            <div class="mb-4">
-              <label for="population" class="block mb-1">
+            <div class="mb-2">
+              <label for="population" class="block mb-1" style="font-size: 11px;">
                 Population: <span id="population-value">200</span>
               </label>
               <div class="slider-container">
@@ -395,8 +395,8 @@
               </div>
             </div>
             
-            <div class="mb-4">
-              <label for="initialInfected" class="block mb-1">
+            <div class="mb-2">
+              <label for="initialInfected" class="block mb-1" style="font-size: 11px;">
                 Initial Infected: <span id="initialInfected-value">5</span>
               </label>
               <div class="slider-container">
@@ -412,8 +412,8 @@
               </div>
             </div>
             
-            <div class="mb-4">
-              <label for="transmissionRate" class="block mb-1">
+            <div class="mb-2">
+              <label for="transmissionRate" class="block mb-1" style="font-size: 11px;">
                 Transmission Rate: <span id="transmissionRate-value">0.40</span>
               </label>
               <div class="slider-container">
@@ -429,8 +429,8 @@
               </div>
             </div>
             
-            <div class="mb-4">
-              <label for="recoveryRate" class="block mb-1">
+            <div class="mb-2">
+              <label for="recoveryRate" class="block mb-1" style="font-size: 11px;">
                 Recovery Rate: <span id="recoveryRate-value">0.10</span>
               </label>
               <div class="slider-container">
@@ -446,8 +446,8 @@
               </div>
             </div>
             
-            <div class="mb-4">
-              <label for="mortalityRate" class="block mb-1">
+            <div class="mb-2">
+              <label for="mortalityRate" class="block mb-1" style="font-size: 11px;">
                 Mortality Rate: <span id="mortalityRate-value">0.03</span>
               </label>
               <div class="slider-container">
@@ -463,8 +463,8 @@
               </div>
             </div>
             
-            <div class="mb-4">
-              <label for="immunityPeriod" class="block mb-1">
+            <div class="mb-2">
+              <label for="immunityPeriod" class="block mb-1" style="font-size: 11px;">
                 Immunity Period (days): <span id="immunityPeriod-value">30</span>
               </label>
               <div class="slider-container">
@@ -480,19 +480,20 @@
               </div>
             </div>
             
-            <div class="mb-4">
-              <div class="flex items-center mb-2">
+            <div class="mb-2">
+              <div class="flex items-center mb-1">
                 <input
                   type="checkbox"
                   id="useBednets"
-                  class="mr-2"
+                  class="mr-1"
+                  style="transform: scale(0.8);"
                 >
-                <label for="useBednets">Use Bed Nets</label>
+                <label for="useBednets" style="font-size: 11px;">Use Bed Nets</label>
               </div>
               
               <div id="bednet-options" style="display: none;">
-                <div class="ml-6 mb-4">
-                  <label for="bednetCoverage" class="block mb-1">
+                <div class="ml-4 mb-2">
+                  <label for="bednetCoverage" class="block mb-1" style="font-size: 11px;">
                     Bed Net Coverage: <span id="bednetCoverage-value">50</span>%
                   </label>
                   <div class="slider-container">
@@ -508,8 +509,8 @@
                   </div>
                 </div>
                 
-                <div class="ml-6 mb-4">
-                  <label for="bednetEfficacy" class="block mb-1">
+                <div class="ml-4 mb-2">
+                  <label for="bednetEfficacy" class="block mb-1" style="font-size: 11px;">
                     Bed Net Efficacy: <span id="bednetEfficacy-value">70</span>%
                   </label>
                   <div class="slider-container">
