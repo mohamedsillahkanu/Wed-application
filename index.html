@@ -15,11 +15,12 @@
     
     body {
       background-color: #f9fafb;
-      padding: 20px;
+      padding: 10px;
+      font-size: 14px;
     }
     
     .container {
-      max-width: 1000px;
+      max-width: 950px;
       margin: 0 auto;
     }
     
@@ -310,18 +311,17 @@
 </head>
 <body>
   <div class="container">
-    <div class="card mb-6">
+    <div class="card mb-4">
       <div class="card-header">
         <h2 class="card-title">Malaria Agent-Based Simulation</h2>
       </div>
       <div class="card-content">
         <div class="flex flex-col md:flex-row">
           <div class="w-full md:w-2/3 md:pr-4">
-            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="600" height="400"></canvas>
+            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="400" height="300"></canvas>
             
             <div class="mt-4 flex space-x-2">
               <button id="start-button" class="button">Start</button>
-              <button id="pause-button" class="button button-outline" disabled>Pause</button>
               <button id="reset-button" class="button button-outline">Reset</button>
             </div>
             
@@ -348,9 +348,9 @@
               <p>Day: <span id="day-count">0</span></p>
             </div>
             
-            <div class="mt-4">
+            <div id="chart-container" class="mt-4">
               <h3 class="text-lg font-semibold mb-2">Disease Progression</h3>
-              <svg id="chart-svg" width="600" height="150" style="border: 1px solid #ccc; display: none;">
+              <svg id="chart-svg" width="400" height="120" style="border: 1px solid #ccc; display: none;">
                 <!-- Chart will be rendered here -->
               </svg>
               
@@ -913,18 +913,22 @@
         animationId = requestAnimationFrame(animate);
       } else {
         stopSimulation();
+        startButton.textContent = "Start";
       }
     }
 
     // Start simulation
     function startSimulation() {
-      if (isRunning || statistics.infected === 0) return;
+      if (isRunning) {
+        // If running, stop it (toggle functionality)
+        stopSimulation();
+        return;
+      }
       
       isRunning = true;
       
-      // Update button states
-      startButton.disabled = true;
-      pauseButton.disabled = false;
+      // Update button text and state
+      startButton.textContent = "Stop";
       
       // Disable parameter controls
       populationSlider.disabled = true;
@@ -940,9 +944,9 @@
     function stopSimulation() {
       isRunning = false;
       
-      // Update button states
+      // Update button text and state
+      startButton.textContent = "Start";
       startButton.disabled = statistics.infected === 0;
-      pauseButton.disabled = true;
       
       // Enable parameter controls
       populationSlider.disabled = false;
@@ -962,7 +966,6 @@
 
     // Event listeners for buttons
     startButton.addEventListener('click', startSimulation);
-    pauseButton.addEventListener('click', stopSimulation);
     resetButton.addEventListener('click', resetSimulation);
 
     // Event listeners for sliders
