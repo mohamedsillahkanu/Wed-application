@@ -318,8 +318,8 @@
       <div class="card-content">
         <div class="flex flex-col md:flex-row">
           <div class="w-full md:w-2/3 md:pr-2">
-            <!-- Canvas size reduced by 50% -->
-            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="125" height="75"></canvas>
+            <!-- Canvas size reduced by 75% from original -->
+            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" style="image-rendering: pixelated;" width="62" height="37"></canvas>
             
             <div class="mt-2 flex space-x-2">
               <button id="start-button" class="button">Start</button>
@@ -351,8 +351,8 @@
             
             <div id="chart-container" class="mt-2">
               <h3 class="text-sm font-semibold mb-1">Disease Progression</h3>
-              <!-- Chart size reduced by 50% -->
-              <svg id="chart-svg" width="125" height="40" style="border: 1px solid #ccc; display: none;">
+              <!-- Chart size reduced by 75% from original -->
+              <svg id="chart-svg" width="62" height="20" style="border: 1px solid #ccc; display: none;">
                 <!-- Chart will be rendered here -->
               </svg>
               
@@ -478,6 +478,23 @@
                   max="100" 
                   step="5" 
                   value="30"
+                >
+              </div>
+            </div>
+            
+            <div class="mb-2">
+              <label for="maxDays" class="block mb-1" style="font-size: 11px;">
+                Simulation Days: <span id="maxDays-value">100</span>
+              </label>
+              <div class="slider-container">
+                <input 
+                  type="range" 
+                  id="maxDays" 
+                  class="slider" 
+                  min="10" 
+                  max="500" 
+                  step="10" 
+                  value="100"
                 >
               </div>
             </div>
@@ -630,6 +647,8 @@
     const mortalityRateValue = document.getElementById('mortalityRate-value');
     const immunityPeriodSlider = document.getElementById('immunityPeriod');
     const immunityPeriodValue = document.getElementById('immunityPeriod-value');
+    const maxDaysSlider = document.getElementById('maxDays');
+    const maxDaysValue = document.getElementById('maxDays-value');
     const bednetCoverageSlider = document.getElementById('bednetCoverage');
     const bednetCoverageValue = document.getElementById('bednetCoverage-value');
     const bednetEfficacySlider = document.getElementById('bednetEfficacy');
@@ -644,6 +663,7 @@
         recoveryRate: parseFloat(recoveryRateSlider.value),
         mortalityRate: parseFloat(mortalityRateSlider.value),
         immunityPeriod: parseInt(immunityPeriodSlider.value, 10),
+        maxDays: parseInt(maxDaysSlider.value, 10),
         useBednets: useBednetsCheckbox.checked,
         bednetCoverage: parseFloat(bednetCoverageSlider.value),
         bednetEfficacy: parseFloat(bednetEfficacySlider.value)
@@ -823,17 +843,13 @@
         
         ctx.fillStyle = color;
         
-        // Draw agent - reduced size by 50% (from 3 to 1.5)
-        ctx.beginPath();
-        ctx.arc(agent.x, agent.y, 1.5, 0, Math.PI * 2);
-        ctx.fill();
+        // Draw agent as a 1px square for clearer visualization
+        ctx.fillRect(Math.round(agent.x), Math.round(agent.y), 1, 1);
         
-        // Draw bednet indicator - reduced size by 50% (from 5 to 2.5)
+        // Draw bednet indicator as a tiny pixel outline
         if (agent.hasBednet && agent.state !== DEAD) {
           ctx.strokeStyle = '#9b59b6'; // Purple for bednets
-          ctx.beginPath();
-          ctx.arc(agent.x, agent.y, 2.5, 0, Math.PI * 2);
-          ctx.stroke();
+          ctx.strokeRect(Math.round(agent.x) - 1, Math.round(agent.y) - 1, 3, 3);
         }
       });
     }
@@ -911,8 +927,10 @@
       updateAgents();
       renderCanvas();
       
-      // Continue animation if there are still infected agents
-      if (statistics.infected > 0) {
+      const params = getSimulationParams();
+      
+      // Continue animation if there are still infected agents and we haven't reached max days
+      if (statistics.infected > 0 && day < params.maxDays) {
         animationId = requestAnimationFrame(animate);
       } else {
         stopSimulation();
@@ -1004,6 +1022,10 @@
 
     immunityPeriodSlider.addEventListener('input', function() {
       immunityPeriodValue.textContent = this.value;
+    });
+    
+    maxDaysSlider.addEventListener('input', function() {
+      maxDaysValue.textContent = this.value;
     });
 
     bednetCoverageSlider.addEventListener('input', function() {
