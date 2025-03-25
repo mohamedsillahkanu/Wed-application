@@ -318,7 +318,8 @@
       <div class="card-content">
         <div class="flex flex-col md:flex-row">
           <div class="w-full md:w-2/3 md:pr-2">
-            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="250" height="150"></canvas>
+            <!-- Canvas size reduced by 50% -->
+            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="125" height="75"></canvas>
             
             <div class="mt-2 flex space-x-2">
               <button id="start-button" class="button">Start</button>
@@ -350,7 +351,8 @@
             
             <div id="chart-container" class="mt-2">
               <h3 class="text-sm font-semibold mb-1">Disease Progression</h3>
-              <svg id="chart-svg" width="250" height="80" style="border: 1px solid #ccc; display: none;">
+              <!-- Chart size reduced by 50% -->
+              <svg id="chart-svg" width="125" height="40" style="border: 1px solid #ccc; display: none;">
                 <!-- Chart will be rendered here -->
               </svg>
               
@@ -665,8 +667,8 @@
           id: i,
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          dx: (Math.random() - 0.5) * 2,
-          dy: (Math.random() - 0.5) * 2,
+          dx: (Math.random() - 0.5) * 1, // Reduced speed by 50%
+          dy: (Math.random() - 0.5) * 1, // Reduced speed by 50%
           state: i < initialInfected ? INFECTED : SUSCEPTIBLE,
           daysInfected: i < initialInfected ? 1 : 0,
           daysImmune: 0,
@@ -721,8 +723,8 @@
               Math.pow(agent.y - infectedAgent.y, 2)
             );
             
-            // Infection occurs within proximity, with reduced chance if bednet is used
-            if (distance < 10) {
+            // Infection occurs within proximity (reduced by 50%), with reduced chance if bednet is used
+            if (distance < 5) {  // Reduced from 10 to 5
               let infectionChance = params.transmissionRate;
               
               // Reduce transmission if using bednets
@@ -821,16 +823,16 @@
         
         ctx.fillStyle = color;
         
-        // Draw agent
+        // Draw agent - reduced size by 50% (from 3 to 1.5)
         ctx.beginPath();
-        ctx.arc(agent.x, agent.y, 3, 0, Math.PI * 2);
+        ctx.arc(agent.x, agent.y, 1.5, 0, Math.PI * 2);
         ctx.fill();
         
-        // Draw bednet indicator
+        // Draw bednet indicator - reduced size by 50% (from 5 to 2.5)
         if (agent.hasBednet && agent.state !== DEAD) {
           ctx.strokeStyle = '#9b59b6'; // Purple for bednets
           ctx.beginPath();
-          ctx.arc(agent.x, agent.y, 5, 0, Math.PI * 2);
+          ctx.arc(agent.x, agent.y, 2.5, 0, Math.PI * 2);
           ctx.stroke();
         }
       });
@@ -850,8 +852,8 @@
         chartSvg.removeChild(chartSvg.firstChild);
       }
       
-      const chartHeight = 150;
-      const chartWidth = 600;
+      const chartHeight = 40; // Reduced by 50%
+      const chartWidth = 125; // Reduced by 50%
       const params = getSimulationParams();
       const maxValue = Math.max(
         params.population,
@@ -870,7 +872,7 @@
         polyline.setAttribute('points', points);
         polyline.setAttribute('fill', 'none');
         polyline.setAttribute('stroke', color);
-        polyline.setAttribute('stroke-width', '2');
+        polyline.setAttribute('stroke-width', '1'); // Reduced from 2 to 1
         
         chartSvg.appendChild(polyline);
       };
@@ -882,7 +884,7 @@
       xAxis.setAttribute('x2', chartWidth);
       xAxis.setAttribute('y2', chartHeight);
       xAxis.setAttribute('stroke', '#333');
-      xAxis.setAttribute('stroke-width', '1');
+      xAxis.setAttribute('stroke-width', '0.5'); // Reduced from 1 to 0.5
       chartSvg.appendChild(xAxis);
       
       // Y-axis
@@ -892,7 +894,7 @@
       yAxis.setAttribute('x2', '0');
       yAxis.setAttribute('y2', chartHeight);
       yAxis.setAttribute('stroke', '#333');
-      yAxis.setAttribute('stroke-width', '1');
+      yAxis.setAttribute('stroke-width', '0.5'); // Reduced from 1 to 0.5
       chartSvg.appendChild(yAxis);
       
       // Create paths for each data series
