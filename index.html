@@ -15,40 +15,51 @@
     
     body {
       background-color: #f9fafb;
-      padding: 6px;
-      font-size: 12px;
+      padding: 16px;
+      font-size: 14px;
     }
     
     .container {
-      max-width: 900px;
+      max-width: 1200px;
       margin: 0 auto;
+      display: flex;
     }
     
     /* Card styling */
     .card {
       background-color: white;
       border-radius: 6px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-bottom: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
       overflow: hidden;
     }
     
     .card-header {
-      padding: 8px 16px;
+      padding: 16px;
       border-bottom: 1px solid #e5e7eb;
     }
     
     .card-title {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: 600;
       color: #111827;
     }
     
     .card-content {
-      padding: 16px;
+      padding: 20px;
     }
     
     /* Layout */
+    .main-content {
+      flex: 3;
+      padding-right: 24px;
+    }
+    
+    .sidebar {
+      flex: 1;
+      min-width: 300px;
+    }
+    
     .flex {
       display: flex;
     }
@@ -61,36 +72,40 @@
       align-items: center;
     }
     
+    .justify-between {
+      justify-content: space-between;
+    }
+    
     .space-x-2 > * + * {
-      margin-left: 6px;
+      margin-left: 8px;
     }
     
     .space-x-4 > * + * {
-      margin-left: 12px;
+      margin-left: 16px;
     }
     
     .mt-2 {
-      margin-top: 6px;
+      margin-top: 8px;
     }
     
     .mt-4 {
-      margin-top: 12px;
+      margin-top: 16px;
     }
     
     .mb-1 {
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
     
     .mb-2 {
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     
     .mb-4 {
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
     
     .mb-6 {
-      margin-bottom: 16px;
+      margin-bottom: 24px;
     }
     
     .mr-1 {
@@ -105,8 +120,8 @@
       margin-right: 16px;
     }
     
-    .ml-6 {
-      margin-left: 24px;
+    .ml-4 {
+      margin-left: 16px;
     }
     
     .p-4 {
@@ -115,14 +130,6 @@
     
     .gap-3 {
       gap: 12px;
-    }
-    
-    .w-3 {
-      width: 12px;
-    }
-    
-    .h-3 {
-      height: 12px;
     }
     
     .w-4 {
@@ -212,12 +219,12 @@
     
     /* Button styling */
     .button {
-      padding: 4px 10px;
+      padding: 8px 16px;
       background-color: #3b82f6;
       color: white;
       border: none;
-      border-radius: 3px;
-      font-size: 0.75rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
       font-weight: 500;
       cursor: pointer;
       transition: background-color 0.2s;
@@ -247,15 +254,25 @@
       border-color: #93c5fd;
     }
     
+    /* Input styling */
+    .input {
+      padding: 8px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      width: 80px;
+    }
+    
     /* Slider styling */
     .slider-container {
       width: 100%;
+      margin-bottom: 16px;
     }
     
     .slider {
       width: 100%;
-      height: 5px;
-      border-radius: 5px;
+      height: 8px;
+      border-radius: 4px;
       background: #e5e7eb;
       outline: none;
       -webkit-appearance: none;
@@ -264,16 +281,16 @@
     .slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       background: #3b82f6;
       cursor: pointer;
     }
     
     .slider::-moz-range-thumb {
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       background: #3b82f6;
       cursor: pointer;
@@ -285,299 +302,319 @@
       padding-left: 24px;
     }
     
+    /* Canvas and chart */
+    #simulation-canvas {
+      width: 100%;
+      background-color: #fff;
+      border: 2px solid #e5e7eb;
+      border-radius: 4px;
+    }
+    
+    #chart-svg {
+      width: 100%;
+      height: 200px;
+      border: 1px solid #e5e7eb;
+      background-color: #fff;
+      border-radius: 4px;
+    }
+    
+    .stats-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+      font-size: 16px;
+    }
+    
+    .stat-item {
+      display: flex;
+      align-items: center;
+      margin-right: 16px;
+    }
+    
+    .stat-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    
     /* Media Queries */
-    @media (min-width: 768px) {
-      .md\\:flex-row {
-        flex-direction: row;
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
       }
       
-      .md\\:w-2\/3 {
-        width: 66.6666%;
+      .main-content {
+        padding-right: 0;
       }
       
-      .md\\:w-1\/3 {
-        width: 33.3333%;
-      }
-      
-      .md\\:pr-4 {
-        padding-right: 16px;
-      }
-      
-      .md\\:mt-0 {
-        margin-top: 0;
+      .sidebar {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="card mb-4">
-      <div class="card-header">
-        <h2 class="card-title">Malaria Agent-Based Simulation</h2>
-      </div>
-      <div class="card-content">
-        <div class="flex flex-col md:flex-row">
-          <div class="w-full md:w-2/3 md:pr-2">
-            <!-- Canvas size reduced by 50% -->
-            <canvas id="simulation-canvas" class="border border-gray-300 rounded w-full" width="125" height="75"></canvas>
-            
-            <div class="mt-2 flex space-x-2">
+    <div class="main-content">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h2 class="card-title">Malaria Agent-Based Simulation</h2>
+        </div>
+        <div class="card-content">
+          <!-- Increased canvas size for better visibility -->
+          <canvas id="simulation-canvas" width="800" height="500"></canvas>
+          
+          <div class="mt-4 flex justify-between items-center">
+            <div class="flex space-x-4">
               <button id="start-button" class="button">Start</button>
               <button id="reset-button" class="button button-outline">Reset</button>
             </div>
             
-            <div class="mt-2 flex flex-wrap gap-2">
-              <div class="flex items-center mr-2">
-                <div class="w-3 h-3 bg-blue-500 mr-1 rounded-full"></div>
-                <span style="font-size: 11px;">Susceptible: <span id="susceptible-count">0</span></span>
+            <div class="flex items-center space-x-4">
+              <div>
+                <label for="max-days" class="block mb-1">Max Days:</label>
+                <input type="number" id="max-days" class="input" min="1" max="1000" value="100">
               </div>
-              <div class="flex items-center mr-2">
-                <div class="w-3 h-3 bg-red-500 mr-1 rounded-full"></div>
-                <span style="font-size: 11px;">Infected: <span id="infected-count">0</span></span>
-              </div>
-              <div class="flex items-center mr-2">
-                <div class="w-3 h-3 bg-green-500 mr-1 rounded-full"></div>
-                <span style="font-size: 11px;">Recovered: <span id="recovered-count">0</span></span>
-              </div>
-              <div class="flex items-center">
-                <div class="w-3 h-3 bg-gray-500 mr-1 rounded-full"></div>
-                <span style="font-size: 11px;">Dead: <span id="dead-count">0</span></span>
-              </div>
-            </div>
-            
-            <div class="mt-1">
-              <p style="font-size: 11px;">Day: <span id="day-count">0</span></p>
-            </div>
-            
-            <div id="chart-container" class="mt-2">
-              <h3 class="text-sm font-semibold mb-1">Disease Progression</h3>
-              <!-- Chart size reduced by 50% -->
-              <svg id="chart-svg" width="125" height="40" style="border: 1px solid #ccc; display: none;">
-                <!-- Chart will be rendered here -->
-              </svg>
               
-              <div class="flex mt-2 space-x-4">
-                <div class="flex items-center">
-                  <div class="w-3 h-3 bg-blue-500 mr-1"></div>
-                  <span class="text-sm">Susceptible</span>
-                </div>
-                <div class="flex items-center">
-                  <div class="w-3 h-3 bg-red-500 mr-1"></div>
-                  <span class="text-sm">Infected</span>
-                </div>
-                <div class="flex items-center">
-                  <div class="w-3 h-3 bg-green-500 mr-1"></div>
-                  <span class="text-sm">Recovered</span>
-                </div>
-                <div class="flex items-center">
-                  <div class="w-3 h-3 bg-gray-500 mr-1"></div>
-                  <span class="text-sm">Dead</span>
-                </div>
+              <div>
+                <p class="font-semibold">Current Day: <span id="day-count">0</span></p>
               </div>
             </div>
           </div>
           
-          <div class="w-full md:w-1/3 mt-4 md:mt-0">
-            <h3 class="text-sm font-semibold mb-1">Simulation Parameters</h3>
-            
-            <div class="mb-2">
-              <label for="population" class="block mb-1" style="font-size: 11px;">
-                Population: <span id="population-value">200</span>
-              </label>
-              <div class="slider-container">
-                <input 
-                  type="range" 
-                  id="population" 
-                  class="slider" 
-                  min="10" 
-                  max="500" 
-                  step="10" 
-                  value="200"
-                >
-              </div>
+          <div class="stats-container">
+            <div class="stat-item">
+              <div class="stat-color" style="background-color: #3498db;"></div>
+              <span>Susceptible: <span id="susceptible-count">0</span></span>
+            </div>
+            <div class="stat-item">
+              <div class="stat-color" style="background-color: #e74c3c;"></div>
+              <span>Infected: <span id="infected-count">0</span></span>
+            </div>
+            <div class="stat-item">
+              <div class="stat-color" style="background-color: #2ecc71;"></div>
+              <span>Recovered: <span id="recovered-count">0</span></span>
+            </div>
+            <div class="stat-item">
+              <div class="stat-color" style="background-color: #7f8c8d;"></div>
+              <span>Dead: <span id="dead-count">0</span></span>
+            </div>
+          </div>
+          
+          <div id="chart-container" class="mt-4">
+            <h3 class="text-lg font-semibold mb-2">Disease Progression</h3>
+            <!-- Enlarged chart for better visibility -->
+            <svg id="chart-svg" width="800" height="400"></svg>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">About This Simulation</h2>
+        </div>
+        <div class="card-content">
+          <h3 class="text-lg font-semibold mb-2">Goal and Utility</h3>
+          <p class="mb-4">
+            This interactive simulation aims to demonstrate how infectious diseases like malaria spread through populations and how public health interventions (like bed nets) can impact disease dynamics. It serves as an educational tool for understanding:
+          </p>
+          <ul class="list-disc pl-6 mb-4">
+            <li>Basic epidemiological concepts (transmission, recovery, immunity)</li>
+            <li>The impact of different parameters on disease spread</li>
+            <li>How preventive measures like bed nets can reduce transmission</li>
+            <li>Population-level effects of individual interventions</li>
+          </ul>
+          
+          <h3 class="text-lg font-semibold mb-2">Controls</h3>
+          <ul class="list-disc pl-6 mb-4">
+            <li><strong>Start:</strong> Begins the simulation, allowing agents to move and interact, spreading the disease according to the set parameters</li>
+            <li><strong>Pause:</strong> Temporarily halts the simulation while preserving the current state, allowing you to study the current situation or adjust ongoing parameters</li>
+            <li><strong>Reset:</strong> Returns the simulation to its initial state with the current parameter settings, allowing you to run multiple scenarios with the same configuration</li>
+            <li><strong>Max Days:</strong> Set the maximum number of days for the simulation to run before automatically stopping</li>
+          </ul>
+          
+          <h3 class="text-lg font-semibold mb-2">Simulation Details</h3>
+          <p class="mb-2">
+            This is a simplified agent-based model of malaria transmission in a population. 
+            Each dot represents a person who can be in one of four states:
+          </p>
+          
+          <ul class="list-disc pl-6 mb-4">
+            <li><span class="text-blue-500 font-medium">Susceptible (Blue)</span>: Can become infected when near infected individuals</li>
+            <li><span class="text-red-500 font-medium">Infected (Red)</span>: Has malaria and can spread it to susceptible individuals</li>
+            <li><span class="text-green-500 font-medium">Recovered (Green)</span>: Temporarily immune to malaria</li>
+            <li><span class="text-gray-500 font-medium">Dead (Gray)</span>: Deceased due to malaria complications</li>
+          </ul>
+          
+          <p class="mb-2">
+            The purple circles around some individuals represent bed nets, which reduce the chance of malaria transmission.
+          </p>
+          
+          <p>
+            Adjust the parameters in the sidebar to see how different factors affect the spread of malaria in the population.
+            Try scenarios with different intervention strategies by changing the bed net coverage and efficacy.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="sidebar">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Simulation Parameters</h2>
+        </div>
+        <div class="card-content">
+          <div class="mb-4">
+            <label for="population" class="block mb-1 font-medium">
+              Population: <span id="population-value">200</span>
+            </label>
+            <div class="slider-container">
+              <input 
+                type="range" 
+                id="population" 
+                class="slider" 
+                min="10" 
+                max="500" 
+                step="10" 
+                value="200"
+              >
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label for="initialInfected" class="block mb-1 font-medium">
+              Initial Infected: <span id="initialInfected-value">5</span>
+            </label>
+            <div class="slider-container">
+              <input 
+                type="range" 
+                id="initialInfected" 
+                class="slider" 
+                min="1" 
+                max="50" 
+                step="1" 
+                value="5"
+              >
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label for="transmissionRate" class="block mb-1 font-medium">
+              Transmission Rate: <span id="transmissionRate-value">0.40</span>
+            </label>
+            <div class="slider-container">
+              <input 
+                type="range" 
+                id="transmissionRate" 
+                class="slider" 
+                min="0.1" 
+                max="0.9" 
+                step="0.05" 
+                value="0.4"
+              >
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label for="recoveryRate" class="block mb-1 font-medium">
+              Recovery Rate: <span id="recoveryRate-value">0.10</span>
+            </label>
+            <div class="slider-container">
+              <input 
+                type="range" 
+                id="recoveryRate" 
+                class="slider" 
+                min="0.01" 
+                max="0.3" 
+                step="0.01" 
+                value="0.1"
+              >
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label for="mortalityRate" class="block mb-1 font-medium">
+              Mortality Rate: <span id="mortalityRate-value">0.03</span>
+            </label>
+            <div class="slider-container">
+              <input 
+                type="range" 
+                id="mortalityRate" 
+                class="slider" 
+                min="0" 
+                max="0.2" 
+                step="0.01" 
+                value="0.03"
+              >
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label for="immunityPeriod" class="block mb-1 font-medium">
+              Immunity Period (days): <span id="immunityPeriod-value">30</span>
+            </label>
+            <div class="slider-container">
+              <input 
+                type="range" 
+                id="immunityPeriod" 
+                class="slider" 
+                min="0" 
+                max="100" 
+                step="5" 
+                value="30"
+              >
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <div class="flex items-center mb-2">
+              <input
+                type="checkbox"
+                id="useBednets"
+                class="mr-2"
+              >
+              <label for="useBednets" class="font-medium">Use Bed Nets</label>
             </div>
             
-            <div class="mb-2">
-              <label for="initialInfected" class="block mb-1" style="font-size: 11px;">
-                Initial Infected: <span id="initialInfected-value">5</span>
-              </label>
-              <div class="slider-container">
-                <input 
-                  type="range" 
-                  id="initialInfected" 
-                  class="slider" 
-                  min="1" 
-                  max="50" 
-                  step="1" 
-                  value="5"
-                >
-              </div>
-            </div>
-            
-            <div class="mb-2">
-              <label for="transmissionRate" class="block mb-1" style="font-size: 11px;">
-                Transmission Rate: <span id="transmissionRate-value">0.40</span>
-              </label>
-              <div class="slider-container">
-                <input 
-                  type="range" 
-                  id="transmissionRate" 
-                  class="slider" 
-                  min="0.1" 
-                  max="0.9" 
-                  step="0.05" 
-                  value="0.4"
-                >
-              </div>
-            </div>
-            
-            <div class="mb-2">
-              <label for="recoveryRate" class="block mb-1" style="font-size: 11px;">
-                Recovery Rate: <span id="recoveryRate-value">0.10</span>
-              </label>
-              <div class="slider-container">
-                <input 
-                  type="range" 
-                  id="recoveryRate" 
-                  class="slider" 
-                  min="0.01" 
-                  max="0.3" 
-                  step="0.01" 
-                  value="0.1"
-                >
-              </div>
-            </div>
-            
-            <div class="mb-2">
-              <label for="mortalityRate" class="block mb-1" style="font-size: 11px;">
-                Mortality Rate: <span id="mortalityRate-value">0.03</span>
-              </label>
-              <div class="slider-container">
-                <input 
-                  type="range" 
-                  id="mortalityRate" 
-                  class="slider" 
-                  min="0" 
-                  max="0.2" 
-                  step="0.01" 
-                  value="0.03"
-                >
-              </div>
-            </div>
-            
-            <div class="mb-2">
-              <label for="immunityPeriod" class="block mb-1" style="font-size: 11px;">
-                Immunity Period (days): <span id="immunityPeriod-value">30</span>
-              </label>
-              <div class="slider-container">
-                <input 
-                  type="range" 
-                  id="immunityPeriod" 
-                  class="slider" 
-                  min="0" 
-                  max="100" 
-                  step="5" 
-                  value="30"
-                >
-              </div>
-            </div>
-            
-            <div class="mb-2">
-              <div class="flex items-center mb-1">
-                <input
-                  type="checkbox"
-                  id="useBednets"
-                  class="mr-1"
-                  style="transform: scale(0.8);"
-                >
-                <label for="useBednets" style="font-size: 11px;">Use Bed Nets</label>
+            <div id="bednet-options" style="display: none;">
+              <div class="ml-4 mb-4">
+                <label for="bednetCoverage" class="block mb-1 font-medium">
+                  Bed Net Coverage: <span id="bednetCoverage-value">50</span>%
+                </label>
+                <div class="slider-container">
+                  <input 
+                    type="range" 
+                    id="bednetCoverage" 
+                    class="slider" 
+                    min="0" 
+                    max="1" 
+                    step="0.05" 
+                    value="0.5"
+                  >
+                </div>
               </div>
               
-              <div id="bednet-options" style="display: none;">
-                <div class="ml-4 mb-2">
-                  <label for="bednetCoverage" class="block mb-1" style="font-size: 11px;">
-                    Bed Net Coverage: <span id="bednetCoverage-value">50</span>%
-                  </label>
-                  <div class="slider-container">
-                    <input 
-                      type="range" 
-                      id="bednetCoverage" 
-                      class="slider" 
-                      min="0" 
-                      max="1" 
-                      step="0.05" 
-                      value="0.5"
-                    >
-                  </div>
-                </div>
-                
-                <div class="ml-4 mb-2">
-                  <label for="bednetEfficacy" class="block mb-1" style="font-size: 11px;">
-                    Bed Net Efficacy: <span id="bednetEfficacy-value">70</span>%
-                  </label>
-                  <div class="slider-container">
-                    <input 
-                      type="range" 
-                      id="bednetEfficacy" 
-                      class="slider" 
-                      min="0" 
-                      max="1" 
-                      step="0.05" 
-                      value="0.7"
-                    >
-                  </div>
+              <div class="ml-4 mb-4">
+                <label for="bednetEfficacy" class="block mb-1 font-medium">
+                  Bed Net Efficacy: <span id="bednetEfficacy-value">70</span>%
+                </label>
+                <div class="slider-container">
+                  <input 
+                    type="range" 
+                    id="bednetEfficacy" 
+                    class="slider" 
+                    min="0" 
+                    max="1" 
+                    step="0.05" 
+                    value="0.7"
+                  >
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    
-    <div class="card">
-      <div class="card-header">
-        <h2 class="card-title">About This Simulation</h2>
-      </div>
-      <div class="card-content">
-        <h3 class="text-lg font-semibold mb-2">Goal and Utility</h3>
-        <p class="mb-4">
-          This interactive simulation aims to demonstrate how infectious diseases like malaria spread through populations and how public health interventions (like bed nets) can impact disease dynamics. It serves as an educational tool for understanding:
-        </p>
-        <ul class="list-disc pl-6 mb-4">
-          <li>Basic epidemiological concepts (transmission, recovery, immunity)</li>
-          <li>The impact of different parameters on disease spread</li>
-          <li>How preventive measures like bed nets can reduce transmission</li>
-          <li>Population-level effects of individual interventions</li>
-        </ul>
-        
-        <h3 class="text-lg font-semibold mb-2">Controls</h3>
-        <ul class="list-disc pl-6 mb-4">
-          <li><strong>Start:</strong> Begins the simulation, allowing agents to move and interact, spreading the disease according to the set parameters</li>
-          <li><strong>Pause:</strong> Temporarily halts the simulation while preserving the current state, allowing you to study the current situation or adjust ongoing parameters</li>
-          <li><strong>Reset:</strong> Returns the simulation to its initial state with the current parameter settings, allowing you to run multiple scenarios with the same configuration</li>
-        </ul>
-        
-        <h3 class="text-lg font-semibold mb-2">Simulation Details</h3>
-        <p class="mb-2">
-          This is a simplified agent-based model of malaria transmission in a population. 
-          Each dot represents a person who can be in one of four states:
-        </p>
-        
-        <ul class="list-disc pl-6 mb-4">
-          <li><span class="text-blue-500 font-medium">Susceptible (Blue)</span>: Can become infected when near infected individuals</li>
-          <li><span class="text-red-500 font-medium">Infected (Red)</span>: Has malaria and can spread it to susceptible individuals</li>
-          <li><span class="text-green-500 font-medium">Recovered (Green)</span>: Temporarily immune to malaria</li>
-          <li><span class="text-gray-500 font-medium">Dead (Gray)</span>: Deceased due to malaria complications</li>
-        </ul>
-        
-        <p class="mb-2">
-          The purple circles around some individuals represent bed nets, which reduce the chance of malaria transmission.
-        </p>
-        
-        <p>
-          Adjust the parameters to see how different factors affect the spread of malaria in the population.
-          Try scenarios with different intervention strategies by changing the bed net coverage and efficacy.
-        </p>
       </div>
     </div>
   </div>
@@ -606,8 +643,8 @@
     const canvas = document.getElementById('simulation-canvas');
     const ctx = canvas.getContext('2d');
     const startButton = document.getElementById('start-button');
-    const pauseButton = document.getElementById('pause-button');
     const resetButton = document.getElementById('reset-button');
+    const maxDaysInput = document.getElementById('max-days');
     const dayCount = document.getElementById('day-count');
     const susceptibleCount = document.getElementById('susceptible-count');
     const infectedCount = document.getElementById('infected-count');
@@ -646,7 +683,8 @@
         immunityPeriod: parseInt(immunityPeriodSlider.value, 10),
         useBednets: useBednetsCheckbox.checked,
         bednetCoverage: parseFloat(bednetCoverageSlider.value),
-        bednetEfficacy: parseFloat(bednetEfficacySlider.value)
+        bednetEfficacy: parseFloat(bednetEfficacySlider.value),
+        maxDays: parseInt(maxDaysInput.value, 10)
       };
     }
 
@@ -667,8 +705,8 @@
           id: i,
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          dx: (Math.random() - 0.5) * 1, // Reduced speed by 50%
-          dy: (Math.random() - 0.5) * 1, // Reduced speed by 50%
+          dx: (Math.random() - 0.5) * 2, // Increased speed for better visualization
+          dy: (Math.random() - 0.5) * 2, // Increased speed for better visualization
           state: i < initialInfected ? INFECTED : SUSCEPTIBLE,
           daysInfected: i < initialInfected ? 1 : 0,
           daysImmune: 0,
@@ -681,6 +719,9 @@
       
       // Render initial state
       renderCanvas();
+      
+      // Reset and show chart
+      renderChart();
     }
 
     // Update agent positions and states
@@ -723,8 +764,8 @@
               Math.pow(agent.y - infectedAgent.y, 2)
             );
             
-            // Infection occurs within proximity (reduced by 50%), with reduced chance if bednet is used
-            if (distance < 5) {  // Reduced from 10 to 5
+            // Infection occurs within proximity, with reduced chance if bednet is used
+            if (distance < 15) {  // Increased radius for better interaction
               let infectionChance = params.transmissionRate;
               
               // Reduce transmission if using bednets
@@ -772,6 +813,11 @@
       
       // Update statistics
       updateStatistics();
+      
+      // Check if simulation should end based on max days
+      if (day >= params.maxDays) {
+        stopSimulation();
+      }
     }
 
     // Update statistics
@@ -823,16 +869,17 @@
         
         ctx.fillStyle = color;
         
-        // Draw agent - reduced size by 50% (from 3 to 1.5)
+        // Draw agent - increased size for better visibility
         ctx.beginPath();
-        ctx.arc(agent.x, agent.y, 1.5, 0, Math.PI * 2);
+        ctx.arc(agent.x, agent.y, 5, 0, Math.PI * 2);
         ctx.fill();
         
-        // Draw bednet indicator - reduced size by 50% (from 5 to 2.5)
+        // Draw bednet indicator - increased size for better visibility
         if (agent.hasBednet && agent.state !== DEAD) {
           ctx.strokeStyle = '#9b59b6'; // Purple for bednets
+          ctx.lineWidth = 2; // Make line thicker
           ctx.beginPath();
-          ctx.arc(agent.x, agent.y, 2.5, 0, Math.PI * 2);
+          ctx.arc(agent.x, agent.y, 10, 0, Math.PI * 2);
           ctx.stroke();
         }
       });
@@ -841,19 +888,16 @@
     // Render chart
     function renderChart() {
       if (history.length < 2) {
-        chartSvg.style.display = 'none';
         return;
       }
-      
-      chartSvg.style.display = 'block';
       
       // Clear previous chart
       while (chartSvg.firstChild) {
         chartSvg.removeChild(chartSvg.firstChild);
       }
       
-      const chartHeight = 40; // Reduced by 50%
-      const chartWidth = 125; // Reduced by 50%
+      const chartHeight = chartSvg.height.baseVal.value;
+      const chartWidth = chartSvg.width.baseVal.value;
       const params = getSimulationParams();
       const maxValue = Math.max(
         params.population,
@@ -861,8 +905,8 @@
       );
       
       // Scale points to chart size
-      const scaleY = (value) => chartHeight - (value / maxValue) * chartHeight;
-      const scaleX = (index) => (index / (history.length - 1 || 1)) * chartWidth;
+      const scaleY = (value) => chartHeight - (value / maxValue) * (chartHeight - 30) - 10;
+      const scaleX = (index) => (index / Math.max(params.maxDays - 1, history.length - 1 || 1)) * (chartWidth - 60) + 50;
       
       // Create SVG paths
       const createPath = (dataKey, color) => {
@@ -872,30 +916,98 @@
         polyline.setAttribute('points', points);
         polyline.setAttribute('fill', 'none');
         polyline.setAttribute('stroke', color);
-        polyline.setAttribute('stroke-width', '1'); // Reduced from 2 to 1
+        polyline.setAttribute('stroke-width', '2');
         
         chartSvg.appendChild(polyline);
       };
       
-      // X-axis
-      const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      xAxis.setAttribute('x1', '0');
-      xAxis.setAttribute('y1', chartHeight);
-      xAxis.setAttribute('x2', chartWidth);
-      xAxis.setAttribute('y2', chartHeight);
-      xAxis.setAttribute('stroke', '#333');
-      xAxis.setAttribute('stroke-width', '0.5'); // Reduced from 1 to 0.5
-      chartSvg.appendChild(xAxis);
-      
+      // Create axes
       // Y-axis
       const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      yAxis.setAttribute('x1', '0');
-      yAxis.setAttribute('y1', '0');
-      yAxis.setAttribute('x2', '0');
-      yAxis.setAttribute('y2', chartHeight);
+      yAxis.setAttribute('x1', '50');
+      yAxis.setAttribute('y1', '10');
+      yAxis.setAttribute('x2', '50');
+      yAxis.setAttribute('y2', chartHeight - 10);
       yAxis.setAttribute('stroke', '#333');
-      yAxis.setAttribute('stroke-width', '0.5'); // Reduced from 1 to 0.5
+      yAxis.setAttribute('stroke-width', '1');
       chartSvg.appendChild(yAxis);
+      
+      // X-axis
+      const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      xAxis.setAttribute('x1', '50');
+      xAxis.setAttribute('y1', chartHeight - 10);
+      xAxis.setAttribute('x2', chartWidth - 10);
+      xAxis.setAttribute('y2', chartHeight - 10);
+      xAxis.setAttribute('stroke', '#333');
+      xAxis.setAttribute('stroke-width', '1');
+      chartSvg.appendChild(xAxis);
+      
+      // Add scale markers for Y-axis
+      for (let i = 0; i <= 5; i++) {
+        const value = Math.round(maxValue * i / 5);
+        const y = scaleY(value);
+        
+        // Tick mark
+        const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        tick.setAttribute('x1', '45');
+        tick.setAttribute('y1', y);
+        tick.setAttribute('x2', '50');
+        tick.setAttribute('y2', y);
+        tick.setAttribute('stroke', '#333');
+        tick.setAttribute('stroke-width', '1');
+        chartSvg.appendChild(tick);
+        
+        // Label
+        const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        label.setAttribute('x', '40');
+        label.setAttribute('y', y + 4);
+        label.setAttribute('text-anchor', 'end');
+        label.setAttribute('font-size', '12');
+        label.textContent = value;
+        chartSvg.appendChild(label);
+      }
+      
+      // Add X-axis labels
+      for (let i = 0; i <= Math.min(history.length - 1, params.maxDays); i += Math.max(1, Math.floor(params.maxDays / 10))) {
+        const x = scaleX(i);
+        
+        // Tick mark
+        const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        tick.setAttribute('x1', x);
+        tick.setAttribute('y1', chartHeight - 10);
+        tick.setAttribute('x2', x);
+        tick.setAttribute('y2', chartHeight - 5);
+        tick.setAttribute('stroke', '#333');
+        tick.setAttribute('stroke-width', '1');
+        chartSvg.appendChild(tick);
+        
+        // Label
+        const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        label.setAttribute('x', x);
+        label.setAttribute('y', chartHeight - 20);
+        label.setAttribute('text-anchor', 'middle');
+        label.setAttribute('font-size', '12');
+        label.textContent = i;
+        chartSvg.appendChild(label);
+      }
+      
+      // Axis labels
+      const yAxisLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      yAxisLabel.setAttribute('x', '15');
+      yAxisLabel.setAttribute('y', chartHeight / 2);
+      yAxisLabel.setAttribute('text-anchor', 'middle');
+      yAxisLabel.setAttribute('transform', `rotate(-90, 15, ${chartHeight / 2})`);
+      yAxisLabel.setAttribute('font-size', '14');
+      yAxisLabel.textContent = 'Population';
+      chartSvg.appendChild(yAxisLabel);
+      
+      const xAxisLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      xAxisLabel.setAttribute('x', chartWidth / 2);
+      xAxisLabel.setAttribute('y', chartHeight - 30);
+      xAxisLabel.setAttribute('text-anchor', 'middle');
+      xAxisLabel.setAttribute('font-size', '14');
+      xAxisLabel.textContent = 'Days';
+      chartSvg.appendChild(xAxisLabel);
       
       // Create paths for each data series
       createPath('susceptible', '#3498db');
@@ -903,124 +1015,3 @@
       createPath('recovered', '#2ecc71');
       createPath('dead', '#7f8c8d');
     }
-
-    // Animation frame handler
-    function animate() {
-      if (!isRunning) return;
-      
-      updateAgents();
-      renderCanvas();
-      
-      // Continue animation if there are still infected agents
-      if (statistics.infected > 0) {
-        animationId = requestAnimationFrame(animate);
-      } else {
-        stopSimulation();
-        startButton.textContent = "Start";
-      }
-    }
-
-    // Start simulation
-    function startSimulation() {
-      if (isRunning) {
-        // If running, stop it (toggle functionality)
-        stopSimulation();
-        return;
-      }
-      
-      isRunning = true;
-      
-      // Update button text and state
-      startButton.textContent = "Stop";
-      
-      // Disable parameter controls
-      populationSlider.disabled = true;
-      initialInfectedSlider.disabled = true;
-      useBednetsCheckbox.disabled = true;
-      bednetCoverageSlider.disabled = true;
-      
-      // Start animation
-      animationId = requestAnimationFrame(animate);
-    }
-
-    // Stop simulation
-    function stopSimulation() {
-      isRunning = false;
-      
-      // Update button text and state
-      startButton.textContent = "Run Simulation";
-      startButton.disabled = statistics.infected === 0;
-      
-      // Enable parameter controls
-      populationSlider.disabled = false;
-      initialInfectedSlider.disabled = false;
-      useBednetsCheckbox.disabled = false;
-      bednetCoverageSlider.disabled = false;
-      
-      // Stop animation
-      cancelAnimationFrame(animationId);
-    }
-
-    // Reset simulation
-    function resetSimulation() {
-      stopSimulation();
-      initializeAgents();
-    }
-
-    // Event listeners for buttons
-    startButton.addEventListener('click', startSimulation);
-    resetButton.addEventListener('click', resetSimulation);
-
-    // Event listeners for sliders
-    populationSlider.addEventListener('input', function() {
-      populationValue.textContent = this.value;
-      
-      // Update max initial infected if needed
-      const maxInfected = Math.min(parseInt(this.value, 10), 50);
-      initialInfectedSlider.max = maxInfected;
-      
-      // Adjust initial infected if it's now over the max
-      if (parseInt(initialInfectedSlider.value, 10) > maxInfected) {
-        initialInfectedSlider.value = maxInfected;
-        initialInfectedValue.textContent = maxInfected;
-      }
-    });
-
-    initialInfectedSlider.addEventListener('input', function() {
-      initialInfectedValue.textContent = this.value;
-    });
-
-    transmissionRateSlider.addEventListener('input', function() {
-      transmissionRateValue.textContent = parseFloat(this.value).toFixed(2);
-    });
-
-    recoveryRateSlider.addEventListener('input', function() {
-      recoveryRateValue.textContent = parseFloat(this.value).toFixed(2);
-    });
-
-    mortalityRateSlider.addEventListener('input', function() {
-      mortalityRateValue.textContent = parseFloat(this.value).toFixed(2);
-    });
-
-    immunityPeriodSlider.addEventListener('input', function() {
-      immunityPeriodValue.textContent = this.value;
-    });
-
-    bednetCoverageSlider.addEventListener('input', function() {
-      bednetCoverageValue.textContent = Math.round(parseFloat(this.value) * 100);
-    });
-
-    bednetEfficacySlider.addEventListener('input', function() {
-      bednetEfficacyValue.textContent = Math.round(parseFloat(this.value) * 100);
-    });
-
-    // Toggle bed net options
-    useBednetsCheckbox.addEventListener('change', function() {
-      bednetOptions.style.display = this.checked ? 'block' : 'none';
-    });
-
-    // Initialize simulation on load
-    window.addEventListener('load', initializeAgents);
-  </script>
-</body>
-</html>
