@@ -1,4 +1,4 @@
-Here's a structured **R training plan** tailored for beginners, intermediate, and advanced learners, with a focus on **malaria data analysis**.  
+# **R training plan** tailored for beginners, intermediate, and advanced learners, with a focus on **malaria data analysis**.  
 
 ---
 
@@ -78,15 +78,4 @@ Here's a structured **R training plan** tailored for beginners, intermediate, an
 ✅ Predicting malaria outbreaks with deep learning  
 ✅ Integration with dashboards (Shiny apps for malaria surveillance)  
 
----
 
-### **Additional Resources**  
-📌 **Books:**  
-- "R for Data Science" – Hadley Wickham  
-- "Spatial Data Analysis in Ecology and Agriculture using R" – Nathaniel E. Stephens  
-
-📌 **Online Courses:**  
-- DataCamp: Introduction to R  
-- Coursera: Data Science with R  
-
-Would you like me to create **hands-on exercises** for each stage? 🚀
